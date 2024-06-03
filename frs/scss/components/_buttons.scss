@@ -1,0 +1,40 @@
+.overview-screen-button,
+.splash-screen-button {
+    border-radius: 2px;
+    background-color: white;
+    text-decoration: none;
+    color: $main-color;
+}
+
+.splash-screen-buttons,
+.overview-screen-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+
+
+.overview-screen-buttons {
+    margin-top: 2em;
+}
+
+.splash-screen-button,
+.overview-screen-button {
+    display: inline-block;
+    text-align: center;
+    padding: 1.5em;
+}
+
+.splash-screen-button {
+    margin: 1em;
+}
+
+.overview-screen-button {
+    width: 50%;
+    min-width: 33%;
+    margin: 1em;
+}

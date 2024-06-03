@@ -1,0 +1,157 @@
+main {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    max-width: 80vw;
+    align-items: center;
+}
+
+.content {
+    width: 35em;
+    max-width: 80vw;
+    margin: auto;
+}
+
+.content-large {
+    width: auto;
+    margin: auto;
+}
+
+.navigation-bar {
+    display: flex;
+    height: 150px;
+    margin-bottom: 50px;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.side-by-side-content {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.content-left,
+.content-right {
+    width: 50%;
+    min-width: 420px;
+}
+
+.thirds-content {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.first-third-content,
+.second-third-content,
+.third-third-content {
+    width: 33%;
+    min-width: 280px;
+}
+
+.side-by-side-table {
+    width: 100%;
+}
+
+.table-border th,
+.table-no-border th {
+    min-width: 6em;
+}
+
+.table-border td,
+.table-border-no-width td, th {
+    padding: 0.5em;
+}
+
+.table-no-border td {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+.nav-icon-menu {
+    height: 1.5em;
+}
+
+.nav-icon-home {
+    height: 2em;
+}
+
+table {
+    width: 100%;
+    margin-top: 50px !important;
+    margin-bottom: 25px !important;
+}
+
+.image-full-width {
+    width: 100%;
+}
+
+.image-half-width {
+    display: block;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.image-extended {
+    width: 100%;
+}
+
+a-scene { 
+    display: block !important;
+    width: 100% !important; 
+    height: 420px !important;
+}
+
+p {
+    display: block;
+}
+
+.input-field {
+    width: 100%;
+    padding-top: 10px;
+    overflow: visible;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.input-field-button {
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.15);
+    background-color:transparent;
+    border-radius:2px;
+    cursor:pointer;
+    color: $main-color;
+    font-size:17px;
+    padding:16px 31px;
+    border-style: none;
+}
+
+.input-field-button:hover {
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.30);
+}
+
+.input-field-text {
+    padding:16px 31px;
+    box-shadow:  0px 2px 4px 0px rgba(0, 0, 0, 0.15);
+    border-style: none;
+    color: $main-color;
+}
+
+.input-field-text:focus {
+    outline: none;
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    width: 100vw;
+    justify-content: center;
+
+    .home{
+        position: absolute;
+        left: 10px;
+    }
+}

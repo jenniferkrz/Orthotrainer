@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Step 3 - Ortho Campus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+
+<div id="wrapper">
+
+    <div id="top">
+        <a href="index.html" id="logo"><img src="images/logo.png"></a>
+    </div>
+
+
+
+    <div id="title">
+        <h2>Intramaxilläre Abweichungen</h1>
+        <p>Bestimmen Sie die Platzbilanz im Oberkiefer.</p>
+    </div>
+
+    <div class="model">
+        <iframe frameborder="0" scrolling="no" onload="resizeIframe(this)" src="orthoruler/public/index.html"></iframe>
+    </div>
+
+    <div class="editor">
+         <!--  <div class="editor_top">
+            <div class="input_cont" id="step_title">
+                <label for="stitle">Step Title:</label>
+                <input type="text" id="stitle" name="stitle"><br>
+            </div>
+            <div class="input_cont" id="step_description">
+                <label for="stitle">Step Description:</label>
+                <input type="text" id="stitle" name="stitle"><br>
+            </div>
+        </div> -->
+
+        <div class="editor_steps">
+            <div class="step_cont" id="step1">
+
+                <div class="s_title">Platz in der Front</div>
+                <div class="input_cont" id="step_description">
+                    <label for="edit4i1">Ist-Wert [mm]:</label>
+                    <input type="text" id="edit4i1" name="edit4i1"><br>
+                </div>
+                <div class="input_cont" id="step_description">
+                    <label for="edit4s1">Soll-Wert [mm]::</label>
+                    <input type="text" id="edit4s1" name="edit4s1"><br>
+                </div>
+                <div class="input_cont" id="step_description">
+                    <label for="edit41d1">Differenz-Wert [mm]::</label>
+                    <input type="text" id="edit41d1" name="edit41d1"><br>
+                </div>
+                <div class="s_title">Linke Stützzone</div>
+                <div class="input_cont" id="step_description">
+                    <label for="edit4i2">Ist-Wert [mm]:</label>
+                    <input type="text" id="edit4i2" name="edit4i2"><br>
+                </div>
+                <div class="input_cont" id="step_description">
+                    <label for="edit4s2">Soll-Wert [mm]::</label>
+                    <input type="text" id="edit4s2" name="edit4s2"><br>
+                </div>
+                <div class="input_cont" id="step_description">
+                    <label for="edit41d2">Differenz-Wert [mm]::</label>
+                    <input type="text" id="edit41d2" name="edit41d2"><br>
+                </div>
+                <div class="s_title">Rechte Stützzone</div>
+                <div class="input_cont" id="step_description">
+                    <label for="edit4i3">Ist-Wert [mm]:</label>
+                    <input type="text" id="edit4i3" name="edit4i3"><br>
+                </div>
+                <div class="input_cont" id="step_description">
+                    <label for="edit4s3">Soll-Wert [mm]::</label>
+                    <input type="text" id="edit4s3" name="edit4s3"><br>
+                </div>
+                <div class="input_cont" id="step_description">
+                    <label for="edit41d3">Differenz-Wert [mm]::</label>
+                    <input type="text" id="edit41d3" name="edit41d3"><br>
+                </div>
+
+                <div class="s_title">Gesamtbilanz</div>
+                <div class="input_cont" id="step_description">
+                    <label for="edit4i4">Ist-Wert [mm]:</label>
+                    <input type="text" id="edit4i4" name="edit4i4"><br>
+                </div>
+                <div class="input_cont" id="step_description">
+                    <label for="edit4d4">Diffferenz [mm]::</label>
+                    <input type="text" id="edit4d4" name="edit4d4"><br>
+                </div>
+               
+            </div>
+        </div>
+
+        <div data-href="step4_1.html" id="value_btn">Lösungen anzeigen</div>
+        <div data-href="step4_1.html" id="next_btn" class="inactive">Zum nächsten Schritt</div>
+    </div>
+</div>
+
+<script src="js/btns.js"></script>
+<script src="js/getValues.js"></script>
+
+
+
+
+</body>
+</html>

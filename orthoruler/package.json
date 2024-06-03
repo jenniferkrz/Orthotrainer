@@ -1,0 +1,31 @@
+{
+  "name": "orthoruler",
+  "version": "0.0.1",
+  "description": "Embeddable Jaw-measurement",
+  "main": "src/application.tsx",
+  "author": "avmz aachen",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@react-three/drei": "^9.78.2",
+    "@react-three/fiber": "^8.13.5",
+    "@types/react-dom": "^18.2.7",
+    "@types/three": "^0.154.0",
+    "esbuild": "^0.18.12",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "three": "^0.154.0",
+    "three-stdlib": "^2.23.13"
+  },
+  "scripts": {
+    "build": "yarn build:js && yarn build:css",
+    "build:js": "esbuild ./src/application.tsx --bundle --outfile=./build/application.js",
+    "build:css": "tailwindcss -i ./src/stylesheet.tailwind.css -o ./build/stylesheet.css"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.2"
+  }
+}

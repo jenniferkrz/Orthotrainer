@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="KFO-Trainer" content="KFO-Trainer">
+    <meta name="Daniel Fink" content="SitePoint">
+
+    <title>FRS</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&amp;family=Roboto&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../stylesheet.css">
+</head>
+
+<body>
+
+    <div class="content content-large">
+
+        <h2>
+            Markieren Sie die relevanten Messpunkte für die kephalometrische Analyse.
+        </h2>
+        <div id="container-ng">
+
+        </div>
+
+        <!--   <a id="nextStep" href="../frs2/">Zum nächsten Schritt</a>-->
+
+
+        <script type="module">
+            import { h, Component, createRef} from 'https://unpkg.com/preact?module'; 
+            import { useState, useEffect } from 'https://unpkg.com/preact@latest/hooks/dist/hooks.module.js?module';
+            import { html, render } from 'https://unpkg.com/htm/preact/index.mjs?module'; // Initialize htm with Preact
+            
+            const [magicX, magicY] = [674,800];
+            function Marker (props) {
+                const style = props.reference ? `left: ${(props.x/magicX)*100}%; top: ${(props.y/magicY)*100}%` : `left: ${props.x*100}%; top: ${props.y*100}%; background-color: ${props.x == 0 && props.y == 0 ? 'transparent' : props.solved ? props.correct ? 'green' : 'red' : '#18ceff'}`;
+                return html`
+                    <div class=${props.reference ? 'marker-reference' : 'marker-user'} style=${style}></div>
+                `
+            }
+
+            function App (props) {
+                
+                const [markers, setMarkers] = useState([]);
+                const [points, setPoints] = useState([]);
+                const [point, setPoint] = useState(0);
+                const [solved, setSolved] = useState(false);
+                const imgRef = createRef();
+
+                useEffect(async () => {
+                    fetch('./fall.json').then(response => response.json())
+                                        .then(pointss => {
+                                            console.log(pointss.values);
+                                            setPoints(pointss.values);
+                                            setMarkers(pointss.values.map(p => {return {x: 0, y: 0}}))
+                                        });
+                }, []);
+
+                const handleClick = (evt) => {
+                    console.log((evt.offsetX / evt.target.clientWidth)*magicX);
+
+                    let marker = {x: markers[point].x, y: markers[point].y};
+                    marker.x = evt.offsetX / evt.target.clientWidth;
+                    marker.y = evt.offsetY / evt.target.clientHeight;
+
+                    let a = markers.slice(0, point);
+                    let b = markers.slice(point + 1, markers.length);
+
+                    setMarkers([...a, marker, ...b]);
+                    console.log(markers);
+                }
+                const solve = (p) => {
+                    let dx = points[p].x - markers[p].x*magicX;
+                    let dy = points[p].y - markers[p].y*magicY;
+                    return Math.abs(dx) < 20 && Math.abs(dy) < 20;
+                }
+                
+                return html`
+                <figure>
+                    <img onClick=${handleClick} ref=${imgRef} src="frs.jpg"/>
+                    <ul>
+                        ${markers.map((m, i) => html`<${Marker} point=${i} x=${m.x} y=${m.y} reference=${false} solved=${solved} correct=${solve(i)}/>`)}    
+                        ${points.map((p, i) => solved ? html`<${Marker} point=${i} x=${p.x} y=${p.y} reference=${true} solved=${solved}/>` : null)}
+                    </ul>
+                    
+                </figure>
+                <div class="foobar">
+                    <ol>
+                        ${points.map((p,i) =>
+                        html`<li style=${markers[i].x != 0 && markers[i].y ? `color: #18ceff` : ``} onClick=${() => setPoint(i)} data-selected=${point == i} data-id=${i}> ${p.name}</li>`
+                        )}
+                    </ol>
+                ${markers.filter((m) => m.x == 0 && m.y == 0).length == 0 ? html`<button type="button" onClick=${() => setSolved(true)}>Solve</button>` : null}
+                </div>
+                `; 
+            } 
+
+            render(html`<${App} name="World" />`, document.getElementById('container-ng'));
+        </script>
+
+        <script>
+          /*   document.querySelector("form").addEventListener("submit", (e) => {
+                document.body.classList.add("solved");
+            }) */
+        </script>
+
+    </div>
+
+
+
+</body>
+
+</html>

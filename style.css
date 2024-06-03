@@ -1,0 +1,210 @@
+body{
+    margin: 0;
+    font-family: 'Public Sans', sans-serif;
+}
+
+#top{
+    background-color: #FAFAFA;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    position: relative;
+}
+
+#top_title{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.6em;
+}
+
+#list{
+    padding: 20px;
+    width: 80%;
+}
+#list_input{
+    display: flex;
+}
+
+.list_top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#new_btn{
+    padding: 10px;
+    background-color: #18ceff;
+    color: white;
+    cursor: pointer;
+}
+.case_head{
+    display: flex;
+    font-weight: bold;
+    padding-bottom: 10px;
+    border-bottom: solid 1px;
+}
+
+.blue_case{
+    width: 20%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: #18ceff;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+}
+.case_attr{
+    width: 22%;
+}
+.case_btns i{
+    padding-left: 5px;
+    padding-right: 5px;
+    cursor: pointer;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+#title{
+    width: 80%;
+}
+#logo{
+    margin-left: 10px;
+}
+#step_nav{
+    display: flex;
+    width: 80%;
+    justify-content: space-between;
+}
+.step_container{
+    padding: 20px;
+    background-color: #18ceff;
+    color: white;
+    margin: 3px;
+    cursor: pointer;
+    width: 10%;
+    text-align: center;
+}
+/* Editor */
+
+#wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.model{
+    padding-top: 10px;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+}
+.model img{
+    width: 100%;
+}
+.editor_top{
+    background-color: #fafafa;
+    padding-top: 15px;
+    margin-bottom: 20px;
+}
+.editor{
+    padding: 20px;
+    width: 80%;
+}
+.input_cont{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 15px;
+}
+label{
+    width: 20%;
+}
+input{
+    width: 60%;
+    height: 25px;
+}
+.s_title{
+    font-size: 1.5em;
+    padding-top: 15px;
+}
+#next_btn, #value_btn{
+    padding: 10px;
+    background-color: #18ceff;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+.line{
+    width: 100%;
+    border-bottom: solid 1px #F4F4F4;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+#editor_rows{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+#editor_links, #editor_rechts{
+    width: 45%;
+}
+
+.loesung_cont{
+    display: flex;
+    justify-content: end;
+    width: 80%;
+}
+.loesung{
+    width: 63%;
+    color: green;
+    padding-top: 5px;
+}
+
+#next_btn.inactive, #value_btn.inactive{
+    display: none;
+    pointer-events: none;
+}
+
+.quadrant{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.quad_container{
+    width: 12%;
+}
+.quad input{
+    text-align: center;
+}
+.quad_container .loesung_cont{
+    text-align: center;
+    justify-content: start;
+    width: 100%;
+}
+iframe{
+    height: 650px;
+    width: 100%;
+}
+
+iframe{
+    height: 650px;
+    width: 100%;
+}
+.editor.frs{
+    height: 80vh;
+}
+
+
+
+

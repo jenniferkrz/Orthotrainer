@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Step 1 - Ortho Campus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+
+<div id="wrapper">
+
+    <div id="top">
+        <a href="index.html" id="logo"><img src="images/logo.png"></a>
+    </div>
+
+    <div id="title">
+        <h2>Intramaxilläre Abweichungen</h1>
+        <p>Beschreiben Sie  die Folgenden Merkmale des Gebisses.</p>
+    </div>
+    <div class="model">
+        <iframe frameborder="0" scrolling="no" onload="resizeIframe(this)" src="orthoruler/public/index.html"></iframe>
+    </div>
+
+    <div class="editor">
+      
+
+        <div class="editor_steps">
+            <div class="step_cont" id="step1">
+
+                <div class="s_title">Zahnbogenform</div>
+                <div class="input_cont" id="step_description">
+                    <label for="ok">Oberkiefer:</label>
+                    <input type="text" id="ok" name="ok"><br>
+                </div>
+                <div class="input_cont" id="step_description">
+                    <label for="uk">Unterkiefer:</label>
+                    <input type="text" id="uk" name="uk"><br>
+                </div>
+
+                <div class="s_title">Zahnbogenform</div>
+                <div class="input_cont" id="step_description">
+                    <label for="ok1">Oberkiefer:</label>
+                    <input type="text" id="ok1" name="ok1"><br>
+                </div>
+                <div class="input_cont" id="step_description">
+                    <label for="uk1">Unterkiefer:</label>
+                    <input type="text" id="uk1" name="uk1"><br>
+                </div>
+
+                <div class="s_title">Zahnbogenform</div>
+                <div class="input_cont" id="step_description">
+                    <label for="ok2">Oberkiefer:</label>
+                    <input type="text" id="ok2" name="ok2"><br>
+                </div>
+                <div class="input_cont" id="step_description">
+                    <label for="uk2">Unterkiefer:</label>
+                    <input type="text" id="uk2" name="uk2"><br>
+                </div>
+
+                <div class="s_title">Zahnbogenform</div>
+                <div class="input_cont" id="step_description">
+                    <label for="ok3">Oberkiefer:</label>
+                    <input type="text" id="ok3" name="ok3"><br>
+                </div>
+                <div class="input_cont" id="step_description">
+                    <label for="uk3">Unterkiefer:</label>
+                    <input type="text" id="uk3" name="uk3"><br>
+                </div>
+
+                <div class="s_title">Speekurve</div>
+                <div class="input_cont" id="step_description">
+                    <label for="sok">Oberkiefer:</label>
+                    <input type="text" id="sok" name="sok"><br>
+                </div>
+                <div class="input_cont" id="step_description">
+                    <label for="suk">Unterkiefer:</label>
+                    <input type="text" id="suk" name="suk"><br>
+                </div>
+                
+            </div>
+        </div>
+
+        <div data-href="step1.html" id="value_btn">Lösungen anzeigen</div>
+        <div data-href="step1.html" id="next_btn" class="inactive">Zum nächsten Schritt</div>
+    </div>
+</div>
+
+<script src="js/btns.js"></script>
+<script src="js/getValues.js"></script>
+
+
+<script>
+    function resizeIframe(obj) {
+      obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+    }
+  </script>
+
+
+</body>
+</html>

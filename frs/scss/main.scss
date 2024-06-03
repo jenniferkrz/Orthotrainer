@@ -1,0 +1,19 @@
+@import "util/variables";
+
+@import "vendor/normalize";
+
+@import "base/typography";
+
+@import "layout/header",
+        "layout/page";
+
+@import "components/buttons",
+        "components/tables";
+
+@import "page/editor",
+        "page/editor2d";
+
+.overview-screen-background,
+.splash-screen-background {
+    background: linear-gradient(0deg, #ffffff, $main-color);
+}

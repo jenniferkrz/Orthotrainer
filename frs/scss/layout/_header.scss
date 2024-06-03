@@ -1,0 +1,13 @@
+.navigation-bar {
+    background: linear-gradient(0deg, #ffffff, $main-color);
+}
+
+.navigation-bar h1 {
+    display: inline-block;
+    color: white;
+    font-size: 3em;
+    margin: 0;
+    max-width: 50vw;
+    line-height: normal;
+    text-align: center;
+}

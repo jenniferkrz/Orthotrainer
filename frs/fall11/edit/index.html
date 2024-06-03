@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="de"><head>
+	<meta charset="utf-8">
+	<meta name="KFO-Trainer" content="KFO-Trainer">
+	<meta name="Daniel Fink" content="SitePoint">
+
+	<title>
+	    
+	    Übungsfall 3 –
+	    KFO-Trainer
+	</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&amp;family=Roboto&amp;display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../../stylesheet.css">
+
+	<script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+	<script src="../../js/aframe-orbit-controls.min.js"></script>
+	<script src="../../js/aframe-components.js"></script>
+	<script src="../../js/mutilator.js"></script>
+	
+    </head>
+
+    <body>
+	
+
+<div id="container" class="frs">
+    <div id="links">
+        <div id="up">
+            <div id="oben">
+
+            </div>
+            <div id="anzeige" class="inactive">
+                <div id="points">
+                    <div class="point">
+                        <div class="x1">X1:
+                            <div id="x1"></div>
+                        </div>
+
+                    </div>
+                    <div class="point">
+                        <div class="y1">Y1:
+                            <div id="y1"></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div id="input">
+
+
+                </div>
+
+            </div>
+
+        </div>
+        <div id="image_container">
+            <canvas id="canvas"></canvas>
+            <img id="image" src="../frs.jpg">
+
+        </div>
+    </div>
+    <div id="recht">
+        <div class="liste_tit">Punkte:</div>
+        <div id="liste">
+        </div>
+        <div id="buttons">
+            <div id="rechts">
+                <div id="delete">Löschen</div>
+                <div id="save">Speichern</div>
+            </div>
+            <div id="show">Alles anzeigen</div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="frs-edit.js"></script>
+
+
+    
+
+</body></html>

@@ -1,0 +1,63 @@
+.splash-screen{
+    margin: auto;
+    padding-top: 12em;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-width: 80vw;
+    align-items: center;
+}
+
+.content {
+    
+    max-width: 40vw;
+    margin: auto;
+    color: grey;
+}
+
+.splash-screen-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 4em;
+    width: 100%;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.splash-screen-button {
+    display: inline-block;
+    min-width: 16em;
+    text-align: center;
+    padding: 1.5em;
+    margin: 2em;
+}
+
+.overview-screen{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-width: 80vw;
+    align-items: center;
+}
+
+.overview-screen-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 2em;
+    width: 100%;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.overview-screen-button {
+    display: inline-block;
+    width: 50%;
+    min-width: 33%;
+    text-align: center;
+    margin: 1em;
+    padding: 1.5em;
+}
+

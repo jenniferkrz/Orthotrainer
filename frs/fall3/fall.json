@@ -1,0 +1,120 @@
+{
+  "values": [
+      {
+          "name": "N: Nasion",
+          "x": 432,
+          "y": 270,
+          "type": "point"
+      },
+      {
+          "name": "S: Sella-Punkt",
+          "x": 183,
+          "y": 301,
+          "type": "point"
+      },
+      {
+          "name": "SpA: Spina nas. ant.",
+          "x": 423,
+          "y": 424,
+          "type": "point"
+      },
+      {
+          "name": "SpP: Spina nas. post.",
+          "x": 271,
+          "y": 424,
+          "type": "point"
+      },
+      {
+          "name": "A: A-Punkt",
+          "x": 430,
+          "y": 442,
+          "type": "point"
+      },
+      {
+          "name": "B: B-Punkt",
+          "x": 435,
+          "y": 585,
+          "type": "point"
+      },
+      {
+          "name": "Me: Menton",
+          "x": 433,
+          "y": 654,
+          "type": "point"
+      },
+      {
+          "name": "Ar: Articulare",
+          "x": 134,
+          "y": 402,
+          "type": "point"
+      },
+      {
+          "name": "TgP: Posteriorer Tangentenpunkt",
+          "x": 182,
+          "y": 534,
+          "type": "point"
+      },
+      {
+          "name": "TgA: Anteriorer Tangentenpunkt",
+          "x": 220,
+          "y": 577,
+          "type": "point"
+      },
+      {
+          "name": "Go: Gonion",
+          "x": 179,
+          "y": 583,
+          "type": "point"
+      },
+      {
+          "name": "AplOK: Apicale Incisivus OK",
+          "x": 390,
+          "y": 408,
+          "type": "point"
+      },
+      {
+          "name": "InlOK: Incisale Incisivus OK",
+          "x": 414,
+          "y": 496,
+          "type": "point"
+      },
+      {
+          "name": "InlUK: Incisale Incisivus UK",
+          "x": 438,
+          "y": 518,
+          "type": "point"
+      },
+      {
+          "name": "AplUK: Apicale Incisivus UK",
+          "x": 420,
+          "y": 585,
+          "type": "point"
+      },
+      {
+          "name": "N': Weichteilnasion",
+          "x": 453,
+          "y": 275,
+          "type": "point"
+      },
+      {
+          "name": "Pog': Weichteilpogonion",
+          "x": 443,
+          "y": 637,
+          "type": "point"
+      },
+      {
+          "name": "OL/UL: Ober- / Unterlippenpunkt",
+          "x": 515,
+          "y": 497,
+          "type": "point"
+      },
+      {
+          "name": "Sn: Subnasale",
+          "x": 477,
+          "y": 446,
+          "x2": 182,
+          "y2": 637,
+          "type": "line"
+      }
+  ]
+}
