@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="bower_components">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/results/mkg/bower_components.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

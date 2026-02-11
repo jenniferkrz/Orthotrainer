@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fallübersicht - Ortho Campus</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/logoNavigation.js"></script>
+
+    <style>
+        .editor_prof {
+            width: 100% !important;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .fall-info {
+            background: #fafafa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .fall-info h2 {
+            margin-top: 0;
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .fall-header {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+
+        .fall-image {
+            flex-shrink: 0;
+        }
+
+        .fall-image img {
+            max-width: 300px;
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .fall-text {
+            flex: 1;
+        }
+
+        @media (max-width: 768px) {
+            .fall-header {
+                flex-direction: column;
+            }
+
+            .fall-image img {
+                max-width: 100%;
+            }
+        }
+
+        .fall-info h3 {
+            color: #555;
+            font-size: 18px;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        .fall-info p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .info-section {
+            margin-bottom: 20px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        #start_btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: #00549F;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        #start_btn:hover {
+            background: #0065ff;
+        }
+
+        #start_btn.inactive {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+<div id="wrapper">
+
+    <div id="top">
+        <a href="index.php" id="logo"><img class="logo_img" src="images/orthocampus_divers.svg"></a>
+        <div id="patientName"></div>
+        <div class="avmz_logo"><img src="images/avmz_logo.svg"></div>
+    </div>
+
+    <div id="title">
+        <h2>Fallübersicht</h2>
+        <p>Informationen zum ausgewählten Fall</p>
+    </div>
+
+    <div class="editor">
+        <div class="editor_prof">
+            <div class="profil_edit_cont">
+                <div class="step_cont" id="step1" style="width: 100%">
+
+                    <div id="fall-content" class="fall-info">
+                        <div class="loading">
+                            <i class="fas fa-spinner fa-spin"></i> Lade Fallinformationen...
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="start_btn">Fall starten</div>
+    </div>
+</div>
+
+<script src="js/loadFallInfo.js"></script>
+<script src="js/reviewMode.js"></script>
+
+<script>
+    function resizeIframe(obj) {
+        obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+    }
+</script>
+
+</body>
+</html>

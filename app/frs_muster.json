@@ -1,0 +1,148 @@
+{
+  "values": [
+    {
+      "name": "N",
+      "type": "point",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "name": "Pog",
+      "type": "point",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "name": "S",
+      "type": "point",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "name": "Spa",
+      "type": "point",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "name": "Spp",
+      "type": "point",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "name": "A",
+      "type": "point",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "name": "B",
+      "type": "point",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "name": "Me",
+      "type": "point",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "name": "Ar",
+      "type": "point",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "name": "Tgp",
+      "type": "point",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "name": "Tga",
+      "type": "point",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "name": "Go",
+      "type": "point",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "name": "InOK1",
+      "type": "point",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "name": "ApOK1",
+      "type": "point",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "name": "InUK1",
+      "type": "point",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "name": "ApUK1",
+      "type": "point",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "name": "hPOcP",
+      "type": "point",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "name": "vPOcP",
+      "type": "point",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "name": "N'",
+      "type": "point",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "name": "Pog'",
+      "type": "point",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "name": "Ls",
+      "type": "point",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "name": "Li",
+      "type": "point",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "name": "Sn",
+      "type": "point",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "name": "ProN",
+      "type": "point",
+      "x": 0,
+      "y": 0
+    }
+  ]
+}

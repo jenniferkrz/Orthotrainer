@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Step 3 - Ortho Campus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/logoNavigation.js"></script>
+
+</head>
+<body>
+
+<style>
+    /* Moyers Tabelle Container */
+    .moyers-table-container {
+        margin-top: 15px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        overflow: hidden;
+        background: #fff;
+    }
+
+    /* Blauer Toggle-Header */
+    .moyers-table-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        gap: 10px;
+        background: #2c5aa0;
+        color: #fff;
+        padding: 12px 15px;
+        font-weight: 600;
+        font-size: 14px;
+        text-align: center;
+        cursor: pointer;
+        transition: background 0.2s;
+        user-select: none;
+    }
+    .moyers-table-toggle:hover {
+        background: #234a85;
+    }
+    .moyers-table-toggle i.fa-chevron-down {
+        transition: transform 0.3s ease;
+        font-size: 12px;
+    }
+    .moyers-table-toggle.open i.fa-chevron-down {
+        transform: rotate(180deg);
+    }
+
+    /* Accordion Content */
+    .moyers-table-body {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+    }
+    .moyers-table-body.open {
+        max-height: 300px;
+    }
+
+    .moyers-table-scroll {
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    /* Moyers Tabelle */
+    .moyers-table {
+        border-collapse: collapse;
+        font-size: 13px;
+        white-space: nowrap;
+        width: max-content;
+        min-width: 100%;
+    }
+    .moyers-table th,
+    .moyers-table td {
+        padding: 8px 12px;
+        text-align: center;
+        border: 1px solid #ddd;
+    }
+    .moyers-table thead th {
+        background: #f0f4f8;
+        font-weight: 600;
+        color: #333;
+    }
+    .moyers-table tbody td {
+        background: #fff;
+    }
+    .moyers-table tbody tr:nth-child(even) td {
+        background: #f9f9f9;
+    }
+
+    /* Fixierte erste Spalte */
+    .moyers-table th:first-child,
+    .moyers-table td:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 1;
+        background: #f0f4f8;
+        font-weight: 600;
+        text-align: left;
+        min-width: 140px;
+        border-right: 2px solid #ccc;
+    }
+    .moyers-table tbody td:first-child {
+        background: #f5f7fa;
+    }
+    .moyers-table tbody tr:nth-child(even) td:first-child {
+        background: #eef1f5;
+    }
+
+    /* Scroll-Hinweis */
+    .scroll-hint {
+        font-size: 11px;
+        color: #888;
+        text-align: right;
+        padding: 5px 10px;
+        background: #f9f9f9;
+        border-top: 1px solid #eee;
+    }
+</style>
+
+<div id="wrapper">
+
+    <div id="top">
+        <a href="index.php" id="logo"><img class="logo_img" src="images/orthocampus_divers.svg"></a>
+        <div id="patientName"></div>
+        <div class="avmz_logo"><img src="images/avmz_logo.svg"></div>
+    </div>
+
+    <div id="title">
+        <h2>Intramaxilläre Abweichungen</h2>
+        <p>Ermitteln Sie die Platzverhältnisse im Unterkiefer. Achten Sie auf die korrekten Vorzeichen!</p>
+    </div>
+
+    <div class="editor_zwei_spalten">
+        <div class="model">
+            <iframe id="orthoruler_frame" frameborder="0" scrolling="no" onload="resizeIframe(this)" src="../orthoruler/public/index1.html"></iframe>
+        </div>
+
+        <div class="editor">
+            <div class="editor_steps">
+                <div class="step_cont flex-cont" id="step1">
+                    <div class="left_input">
+
+                        <div class="s_title">Zahnbreiten Unterkiefer [mm]</div>
+                        <div class="input_cont" id="step_description">
+                            <label for="edit345">45:</label>
+                            <input class="sum1" type="text" id="edit345" name="edit345"><br>
+                        </div>
+                        <div class="input_cont" id="step_description">
+                            <label for="edit344">44:</label>
+                            <input class="sum1" type="text" id="edit344" name="edit344"><br>
+                        </div>
+                        <div class="input_cont" id="step_description">
+                            <label for="edit343">43:</label>
+                            <input class="sum1" type="text" id="edit343" name="edit343"><br>
+                        </div>
+                        <div class="line"></div>
+                        <div class="input_cont" id="step_description">
+                            <label for="edit342">42:</label>
+                            <input class="sum2" type="text" id="edit342" name="edit342"><br>
+                        </div>
+                        <div class="input_cont" id="step_description">
+                            <label for="edit341">41:</label>
+                            <input class="sum2" type="text" id="edit341" name="edit341"><br>
+                        </div>
+                        <div class="input_cont" id="step_description">
+                            <label for="edit331">31:</label>
+                            <input class="sum2" type="text" id="edit331" name="edit331"><br>
+                        </div>
+                        <div class="input_cont" id="step_description">
+                            <label for="edit332">32:</label>
+                            <input class="sum2" type="text" id="edit332" name="edit332"><br>
+                        </div>
+                        <div class="line"></div>
+
+                        <div class="input_cont" id="step_description">
+                            <label for="edit333">33:</label>
+                            <input class="sum3" type="text" id="edit333" name="edit333"><br>
+                        </div>
+                        <div class="input_cont" id="step_description">
+                            <label for="edit334">34:</label>
+                            <input class="sum3" type="text" id="edit334" name="edit334"><br>
+                        </div>
+                        <div class="input_cont" id="step_description">
+                            <label for="edit335">35:</label>
+                            <input class="sum3" type="text" id="edit335" name="edit335"><br>
+                        </div>
+
+                    </div>
+                    </div>
+                </div>
+        </div>
+
+
+
+    </div>
+
+
+
+    <div class="editor">
+
+        <!-- Moyers-Tabelle mit blauem Toggle-Header -->
+        <div class="moyers-table-container">
+            <div class="moyers-table-toggle" id="moyers-toggle">
+                <i class="fas fa-table"></i>
+                Stützzonen-Tabelle nach MOYERS (75 % - Grenze)
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="moyers-table-body" id="moyers-content">
+                <div class="moyers-table-scroll">
+                    <table class="moyers-table">
+                        <thead>
+                        <tr>
+                            <th>Summe der Inzisivi im UK</th>
+                            <th>19,5</th>
+                            <th>20,0</th>
+                            <th>20,5</th>
+                            <th>21,0</th>
+                            <th>21,5</th>
+                            <th>22,0</th>
+                            <th>22,5</th>
+                            <th>23,0</th>
+                            <th>23,5</th>
+                            <th>24,0</th>
+                            <th>24,5</th>
+                            <th>25,0</th>
+                            <th>25,5</th>
+                            <th>26,0</th>
+                            <th>26,5</th>
+                            <th>27,0</th>
+                            <th>27,5</th>
+                            <th>28,0</th>
+                            <th>28,5</th>
+                            <th>29,0</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Summe 3,4,5 im OK</td>
+                            <td>20,6</td>
+                            <td>20,9</td>
+                            <td>21,2</td>
+                            <td>21,3</td>
+                            <td>21,8</td>
+                            <td>22,0</td>
+                            <td>22,3</td>
+                            <td>22,6</td>
+                            <td>22,9</td>
+                            <td>23,1</td>
+                            <td>23,4</td>
+                            <td>23,7</td>
+                            <td>24,0</td>
+                            <td>24,3</td>
+                            <td>24,6</td>
+                            <td>25,0</td>
+                            <td>25,3</td>
+                            <td>25,6</td>
+                            <td>25,8</td>
+                            <td>25,9</td>
+                        </tr>
+                        <tr>
+                            <td>Summe 3,4,5 im UK</td>
+                            <td>20,1</td>
+                            <td>20,4</td>
+                            <td>20,7</td>
+                            <td>21,0</td>
+                            <td>21,3</td>
+                            <td>21,6</td>
+                            <td>21,9</td>
+                            <td>22,2</td>
+                            <td>22,5</td>
+                            <td>22,8</td>
+                            <td>23,1</td>
+                            <td>23,4</td>
+                            <td>23,7</td>
+                            <td>24,0</td>
+                            <td>24,3</td>
+                            <td>24,6</td>
+                            <td>25,1</td>
+                            <td>25,4</td>
+                            <td>25,7</td>
+                            <td>25,7</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="scroll-hint"><i class="fas fa-arrows-alt-h"></i> Horizontal scrollen für mehr Werte</div>
+            </div>
+        </div>
+      
+
+        <div class="editor_steps">
+            <div class="step_cont flex-cont" id="step1">
+                <div class="left_input">
+                    <div class="s_title">Summen</div>
+                    <div class="abstand_x"> <div class="table_row">Ist-Wert</div></div>
+
+                    <!--                    Summe 12,11,21,22-->
+                    <div class="input_cont_sum" id="step_description">
+                        <label for="editsum1uk">Summe<sub>45,44,43</sub></label><br>
+                        <input disabled type="text" id="editsum1uk" name="editsum1uk"><br>
+                    </div>
+                    <div class="input_cont_sum" id="step_description">
+                        <label for="editsum2uk">SI<sub>UK</sub></label><br>
+                        <input disabled type="text" id="editsum2uk" name="editsum2uk"><br>
+                    </div>
+                    <div class="input_cont_sum" id="step_description">
+                        <label for="editsum3uk">Summe<sub>33,34,35</sub></label><br>
+                        <input disabled type="text" id="editsum3uk" name="editsum3uk"><br>
+                    </div>
+                    <div class="table_row"></div>
+
+
+                </div>
+
+                <div class="right_input">
+
+
+
+                    <div class="s_title">Platzanalyse Unterkiefer</div>
+
+                    <div class="sum_table">
+                        <div class="table_left">
+                            <div class="table_cont_left">
+                                <div class="table_row"></div>
+                                <div class="table_row_left">Platz in der Front</div>
+                                <div class="table_row_left">Linke Stützzone</div>
+                                <div class="table_row_left">Rechte Stützzone</div>
+                                <div class="table_row_left"><strong>Gesamtbilanz</strong></div>
+
+                            </div>
+                        </div>
+                        <div class="table_right">
+                            <div class="table_cont">
+                                <div class="table_row">Ist-Wert</div>
+                                <div class="table_row">Soll-Wert</div>
+                                <div class="table_row">Differenz</div>
+                            </div>
+
+                            <div class="table_cont">
+                                <div class="table_cont_sol_cont"><div class="table_row input_cont"><input  type="text" id="realbuk" name="realbuk"></div></div>
+                                <div class="table_cont_sol_cont"><div class="table_row input_cont"><input  type="text" id="gemZuk" name="gemZuk"></div></div>
+                                <div class="table_cont_sol_cont"><div class="table_row input_cont"><input type="text" id="diff1uk" name="diff1uk"></div></div>
+                            </div>
+                            <div class="table_cont">
+                                <div class="table_cont_sol_cont"><div class="table_row input_cont"><input  type="text" id="rstuk" name="rstuk"></div></div>
+                                <div class="table_cont_sol_cont"><div class="table_row input_cont"><input  type="text" id="gemZ2uk" name="gemZ2uk"></div></div>
+                                <div class="table_cont_sol_cont"><div class="table_row input_cont"><input  type="text" id="diff2uk" name="diff2uk"></div></div>
+                            </div>
+                            <div class="table_cont">
+                                <div class="table_cont_sol_cont"><div class="table_row input_cont"><input  type="text" id="rst2uk" name="rst2uk"></div></div>
+                                <div class="table_cont_sol_cont"><div class="table_row input_cont"><input  type="text" id="gemZ3uk" name="gemZ3uk"></div></div>
+                                <div class="table_cont_sol_cont"><div class="table_row input_cont"><input  type="text" id="diff3uk" name="diff3uk"></div></div>
+                            </div>
+                            <div class="table_cont">
+                                <div class="table_cont_sol_cont"><div class="table_row input_cont"><input type="text" disabled></div></div>
+                                <div class="table_cont_sol_cont"><div class="table_row input_cont"><input type="text" disabled></div></div>
+                                <div class="table_cont_sol_cont"><div class="table_row input_cont"><input type="text" id="gesamtbiuk" name="gesamtbiuk"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+               
+            </div>
+        </div>
+
+        <div data-href="step2.html" id="value_btn">Lösungen anzeigen</div>
+        <div data-href="step2.html" id="next_btn" class="inactive">Zum nächsten Schritt</div>
+    </div>
+</div>
+
+<script src="js/btns.js"></script>
+<script src="js/getValues.js"></script>
+<script src="js/setViewer.js"></script>
+<script src="js/summen3.js"></script>
+
+<script src="js/loadFall.js"></script>
+
+<script src="js/reviewMode.js"></script>
+
+<script>
+    // Accordion Funktionalität für Moyers-Tabelle
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggle = document.getElementById('moyers-toggle');
+        const content = document.getElementById('moyers-content');
+
+        toggle.addEventListener('click', function() {
+            toggle.classList.toggle('open');
+            content.classList.toggle('open');
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

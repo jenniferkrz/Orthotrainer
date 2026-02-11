@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Step 1 - Ortho Campus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/logoNavigation.js"></script>
+
+</head>
+<body>
+
+<div id="wrapper">
+
+    <div id="top">
+        <a href="index.php" id="logo"><img class="logo_img" src="images/orthocampus_divers.svg"></a>
+        <div id="patientName"></div>
+        <div class="avmz_logo"><img src="images/avmz_logo.svg"></div>
+    </div>
+
+    <div id="title">
+        <h2>Intramaxilläre Abweichungen</h2>
+        <p>Beschreiben Sie die folgenden Merkmale des Gebisses.<br>Bei der Bestimmung des KIGs kann davon ausgegangen werden, dass ein permanentes Gebiss ohne Nichtanlagen vorliegt.</p>
+    </div>
+    <div class="model">
+        <iframe id="orthoruler_frame" frameborder="0" scrolling="no" onload="resizeIframe(this)" src="../orthoruler/public/index1.html"></iframe>
+    </div>
+
+    <div class="editor">
+
+        <div class="editor_steps">
+            <div class="input_cont small" id="step_description">
+                <label for="kig">KIG:</label><br>
+                <textarea type="text" id="kig" name="kig"></textarea><br>
+            </div>
+            <div class="step_cont" id="step1">
+                <div class="s_title">Zahnbogenform</div>
+                <div class="input_cont" id="step_description">
+                    <label for="ok">Oberkiefer:</label><br>
+                    <textarea type="text" id="ok" name="ok"></textarea><br>
+                </div>
+                <div class="input_cont" id="step_description">
+                    <label for="uk">Unterkiefer:</label><br>
+                    <textarea type="text" id="uk" name="uk"></textarea><br>
+                </div>
+
+                <div class="s_title">Zahnformen und -größen</div>
+                <div class="input_cont" id="step_description">
+                    <label for="ok1">Oberkiefer:</label><br>
+                    <textarea type="text" id="ok1" name="ok1"></textarea><br>
+                </div>
+                <div class="input_cont" id="step_description">
+                    <label for="uk1">Unterkiefer:</label><br>
+                    <textarea type="text" id="uk1" name="uk1"></textarea><br>
+                </div>
+
+                <div class="s_title">Abweichungen von Einzelzähnen oder von Zahngruppen </div>
+                <div class="input_cont" id="step_description">
+                    <label for="ok2">Oberkiefer:</label><br>
+                    <textarea type="text" id="ok2" name="ok2"></textarea><br>
+                </div>
+                <div class="input_cont" id="step_description">
+                    <label for="uk2">Unterkiefer:</label><br>
+                    <textarea type="text" id="uk2" name="uk2"></textarea><br>
+                </div>
+
+                <div class="s_title">Frontzahnrelation (Okklusionsebene)</div>
+                <div class="input_cont" id="step_description">
+                    <label for="ok3">Oberkiefer:</label><br>
+                    <textarea type="text" id="ok3" name="ok3"></textarea><br>
+                </div>
+                <div class="input_cont" id="step_description">
+                    <label for="uk3">Unterkiefer:</label><br>
+                    <textarea type="text" id="uk3" name="uk3"></textarea><br>
+                </div>
+                <div class="s_title">Ausprägung der Spee-Kurve </div>
+
+                <div class="input_cont" id="step_description">
+                    <label for="suk">Unterkiefer:</label><br>
+                    <textarea type="text" id="suk" name="suk"></textarea><br>
+                </div>
+            </div>
+        </div>
+
+        <div data-href="step1.html" id="value_btn">Lösungen anzeigen</div>
+        <div data-href="step1.html" id="next_btn" class="inactive">Zum nächsten Schritt</div>
+    </div>
+</div>
+
+<script src="js/btns.js"></script>
+<script src="js/getValues.js"></script>
+<script src="js/setViewer.js"></script>
+
+<script src="js/loadFall.js"></script>
+<script src="js/reviewMode.js"></script>
+
+
+</body>
+</html>

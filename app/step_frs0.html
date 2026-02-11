@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FRS - Ortho Campus</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/logoNavigation.js"></script>
+    <style>
+        .delete-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            background: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease, background 0.2s ease;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .delete-btn.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .delete-btn:hover {
+            background: #cc0000;
+        }
+
+        .delete-btn:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+
+<div id="wrapper">
+
+    <div id="top">
+        <a href="index.php" id="logo"><img class="logo_img" src="images/orthocampus_divers.svg"></a>
+        <div id="patientName"></div>
+        <div class="avmz_logo"><img src="images/avmz_logo.svg"></div>
+    </div>
+
+
+    <div id="title">
+        <h2>FRS</h2>
+        <p>Setzen Sie die Punkte im FRS. Um den Punkt Go setzen zu können, dürfen Sie Hilfslinien zeichnen.</p>
+    </div>
+
+    <div class="flex_frs">
+        <div class="model drei">
+            <div class="frs_line_container">
+                <div class="auswahl">
+                    <div class="auswahl_tab active" data-id="point" >Punkt</div>
+                    <div class="auswahl_tab" data-id="line">Linie</div>
+                    <div class="auswahl_tab" data-id="ausw"></div>
+                </div>
+                <div class="lines_container" id="container">
+                    <div class="frs_target" id="zoomTarget">
+                        <img id="linien_img1" src="images/frs7.png" style="width:100%; height:auto;">
+                        <canvas id="frs_canvas"></canvas>
+                    </div>
+                    <button id="delete-btn-frs" class="delete-btn">
+                        <i class="fas fa-trash-alt"></i> Element löschen
+                    </button>
+                    <div class="zoom_controls">
+                        <button id="zoom_in3"><i class="fa fa-search-plus"></i></button>
+                        <button id="zoom_out3"><i class="fa fa-search-minus"></i></button>
+                        <button id="reset_zoom3"><i class="fa fa-undo-alt"></i></button>
+                        <button id="move_mode3"><i class="fas fa-arrows-alt"></i></button>
+
+                    </div>
+                </div>
+                <!--  <div class="auswahl">
+                      <div class="nav_tab" data-id="aufh" >Auswahl aufheben</div>
+                      <div class="nav_tab clicked" data-id="einbl">Alles ausblenden</div>
+                      <div class="nav_tab" data-id="delete_all">Alles löschen</div>
+                  </div>-->
+            </div>
+        </div>
+
+
+        <div class="editor">
+            <div class="editor_steps">
+                <h3>Punkte:</h3>
+                <div class="step_cont" id="step1">
+                    <div data-index="0" class="frs_point">N</div>
+                    <div data-index="1" class="frs_point">Pog</div>
+                    <div data-index="2" class="frs_point">S</div>
+                    <div data-index="3" class="frs_point">Spa</div>
+                    <div data-index="4" class="frs_point">Spp</div>
+                    <div data-index="5" class="frs_point">A</div>
+                    <div data-index="6" class="frs_point">B</div>
+                    <div data-index="7" class="frs_point">Me</div>
+                    <div data-index="8" class="frs_point">Ar</div>
+                    <div data-index="9" class="frs_point">Tgp</div>
+                    <div data-index="10" class="frs_point">Tga</div>
+                    <div data-index="11" class="frs_point">Go</div>
+                    <div data-index="12" class="frs_point">InOK1</div>
+                    <div data-index="13" class="frs_point">InUK1</div>
+                    <div data-index="14" class="frs_point">ApOK1</div>
+                    <div data-index="15" class="frs_point">ApUK1</div>
+                    <div data-index="16" class="frs_point">hPOcP</div>
+                    <div data-index="17" class="frs_point">vPOcP</div>
+                    <div data-index="18" class="frs_point">N'</div>
+                    <div data-index="19" class="frs_point">Pog'</div>
+                    <div data-index="20" class="frs_point">Ls</div>
+                    <div data-index="21" class="frs_point">Li</div>
+                    <div data-index="22" class="frs_point">Sn</div>
+                    <div data-index="23" class="frs_point">ProN</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div data-href="step_frs.html" id="value_btn">Lösungen anzeigen</div>
+    <div data-href="step_frs.html" id="next_btn" class="inactive">Nächster Schritt</div>
+</div>
+
+<script src="js/setImagesFRS.js"></script>
+<script src="js/btns_frs.js"></script>
+<script src="js/getValues.js"></script>
+<script src="js/frs0.js"></script>
+<script src="js/frs_zoom.js"></script>
+<script src="js/loadFall.js"></script>
+
+<script src="js/reviewMode.js"></script>
+<script src="js/reviewModeFrs0.js"></script>
+
+<script>
+    function resizeIframe(obj) {
+        obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+    }
+</script>
+
+</body>
+</html>

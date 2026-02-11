@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ortho Campus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/logoNavigation.js"></script>
+</head>
+<body>
+
+<div id="wrapper">
+
+    <div id="top">
+        <a href="index.php" id="logo"><img class="logo_img" src="images/orthocampus_divers.svg"></a>
+        <div class="avmz_logo"><img src="images/avmz_logo.svg"></div>
+    </div>
+
+    <div id="start">
+        <div class="start_top">
+            <h2>Bitte eingeben:</h2>
+        </div>
+        <p><small><strong>Für RWTH-Studierende:</strong> Sie finden Ihren Identifier im Studienportal unter "Meine Daten".</small></p>
+        <p><small><strong>Für Externe:</strong> Geben Sie hier ihre E-Mail Adresse an. Diese wird nur genutzt, damit Ihr Fortschritt nicht verloren geht und Sie einen begonnenen Fall weiter bearbeiten können.</small></p>
+        <div class="start_input" id="step_description">
+            <label for="identifier">Identifier:</label><br>
+            <input type="text" id="identifier" name="identifier"></input><br>
+        </div>
+    <!--    <div class="start_input" id="step_description">
+            <p><strong>Gruppe:</strong></p>
+            <div class="radio_cont">
+                <input type="radio" id="lp" name="gruppe" value="ad"></input>
+            <label for="lp">analog - digital</label></div>
+            <div class="radio_cont">
+                <input type="radio" id="age1" name="gruppe" value="da">
+
+            <label for="lp">digital - analog</label></div>
+
+        </div>-->
+        <div data-href="welcome.php" id="start_btn">Start</div>
+
+
+    </div>
+
+</div>
+
+<script src="js/start.js"></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Step 1 - Ortho Campus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/logoNavigation.js"></script>
+
+</head>
+<body>
+
+<div id="wrapper">
+
+    <div id="top">
+        <a href="index.php" id="logo"><img class="logo_img" src="images/orthocampus_divers.svg"></a>
+        <div id="patientName"></div>
+        <div class="avmz_logo"><img src="images/avmz_logo.svg"></div>
+    </div>
+    
+
+    <div id="title">
+        <h2>Intramaxilläre Abweichungen</h2>
+        <p>Bestimmen Sie die anteriore und posteriore Zahnbogenbreite. </p>
+    </div>
+
+    <div class="model">
+        <iframe id="orthoruler_frame" frameborder="0" scrolling="no" onload="resizeIframe(this)" src="../orthoruler/public/index1.html"></iframe>    </div>
+
+    <div class="editor">
+       <!--   <div class="editor_top">
+            <div class="input_cont" id="step_title">
+                <label for="stitle">Step Title:</label><br>
+                <input type="text" id="stitle" name="stitle"><br>
+            </div>
+            <div class="input_cont" id="step_description">
+                <label for="stitle">Step Description:</label><br>
+                <input type="text" id="stitle" name="stitle"><br>
+            </div>
+        </div> --> 
+
+        <div class="editor_steps">
+            <div class="step_cont" id="step1">
+                <div class="s_title">Zahnbogenbreiten</div>
+                <div class="s_title">Anteriore Zahnbogenbreiten (mm)</div>
+                <div class="input_cont" id="step_description">
+                    <label for="sokx">Oberkiefer:</label><br>
+                    <input type="text" id="sokx" name="sokx"><br>
+                </div>
+                <div class="input_cont" id="step_description">
+                    <label for="sukx">Unterkiefer:</label><br>
+                    <input type="text" id="sukx" name="sukx"><br>
+                </div>
+                <div class="s_title">Posteriore Zahnbogenbreiten (mm) </div>
+                <div class="input_cont" id="step_description">
+                    <label for="soky">Oberkiefer:</label><br>
+                    <input type="text" id="soky" name="soky"><br>
+                </div>
+                <div class="input_cont" id="step_description">
+                    <label for="suky">Unterkiefer:</label><br>
+                    <input type="text" id="suky" name="suky"><br>
+                </div>
+                
+            </div>
+        </div>
+
+        <div data-href="step3.html" id="value_btn">Lösungen anzeigen</div>
+        <div data-href="step3.html" id="next_btn" class="inactive">Zum nächsten Schritt</div>
+    </div>
+</div>
+
+<script src="js/btns.js"></script>
+<script src="js/getValues.js"></script>
+<script src="js/setViewer.js"></script>
+<script src="js/loadFall.js"></script>
+
+<script src="js/reviewMode.js"></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FRS - Ortho Campus</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/logoNavigation.js"></script>
+
+    <style>
+        .editor_prof{
+            width: 100% !important;
+        }
+
+        .frs-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: .5rem;
+            font-size: 14px;
+            table-layout: fixed;
+        }
+
+        .frs-table th, .frs-table td {
+            border-bottom: 1px solid #e6e6e6;
+            padding: 6px 8px;
+            vertical-align: top;
+            word-wrap: break-word;
+        }
+
+        .frs-table thead th {
+            text-align: left;
+            font-weight: 600;
+            background: #fafafa;
+        }
+
+        /* Spaltenbreiten */
+        .frs-table .param     { width: 16%; }
+        .frs-table .mw        { width: 7%;  }
+        .frs-table .sd        { width: 7%;  }
+        .frs-table .val       { width: 14%; }
+        .frs-table .radio-col { width: 60%; }
+
+        /* Eingabefeld */
+        .frs_input {
+            width: 100%;
+            box-sizing: border-box;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 4px 8px;
+            border-radius: 3px;
+        }
+
+        /* Dropdown-Layout */
+        .assess {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .assess-row {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .assess select {
+            min-width: 140px;
+            padding: 4px 8px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            background: white;
+            font-size: 13px;
+        }
+
+        .suffix-text {
+            font-size: 13px;
+        }
+
+        /* Optional kompakter auf schmalen Screens */
+        @media (max-width: 900px) {
+            .assess select { min-width: 120px; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="wrapper">
+
+    <div id="top">
+        <a href="index.php" id="logo"><img class="logo_img" src="images/orthocampus_divers.svg"></a>
+        <div id="patientName"></div>
+        <div class="avmz_logo"><img src="images/avmz_logo.svg"></div>
+    </div>
+
+    <div id="title">
+        <h2>FRS</h2>
+        <p>Stellen Sie die kephalometrische Diagnose.</p>
+    </div>
+
+    <div class="editor">
+        <div class="editor_prof">
+            <div class="profil_edit_cont">
+                <div class="step_cont" id="step1" style="width: 100%">
+                    <h3>Winkel (in Grad):</h3>
+
+                    <table class="frs-table" aria-label="FRS-Referenzen und Eingaben">
+                        <thead>
+                        <tr>
+                            <th class="param">Parameter</th>
+                            <th class="mw">MW</th>
+                            <th class="sd">SD</th>
+                            <th class="val">Musterlösung</th>
+                            <th>Beurteilung</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- SNA -->
+                        <tr>
+                            <td>SNA</td>
+                            <td>82</td>
+                            <td>3</td>
+                            <td><input class="frs_input" readonly id="winkel_sna" type="text" placeholder="Grad"></td>
+                            <td>
+                                <div class="assess">
+                                    <div class="assess-row">
+                                        <select name="sna_grad" id="sna_grad">
+                                            <option value="" selected disabled>Bitte wählen</option>
+                                            <option value="-">-</option>
+                                            <option value="tendentiell">tendentiell</option>
+                                            <option value="manifest">manifest</option>
+                                            <option value="extrem">extrem</option>
+                                        </select>
+                                    </div>
+                                    <div class="assess-row">
+                                        <select name="sna_klasse" id="sna_klasse">
+                                            <option value="" selected disabled>Bitte wählen</option>
+                                            <option value="orthognath">orthognathe</option>
+                                            <option value="retrognath">retrognathe</option>
+                                            <option value="prognath">prognathe</option>
+                                        </select>
+                                    </div>
+                                    <span class="suffix-text">Maxilla nach SNA</span>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- SNB -->
+                        <tr>
+                            <td>SNB</td>
+                            <td>80</td>
+                            <td>3</td>
+                            <td><input class="frs_input" readonly id="winkel_snb" type="text" placeholder="Grad"></td>
+                            <td>
+                                <div class="assess">
+                                    <div class="assess-row">
+                                        <select name="snb_grad" id="snb_grad">
+                                            <option value="" selected disabled>Bitte wählen</option>
+                                            <option value="-">-</option>
+                                            <option value="tendentiell">tendentiell</option>
+                                            <option value="manifest">manifest</option>
+                                            <option value="extrem">extrem</option>
+                                        </select>
+                                    </div>
+                                    <div class="assess-row">
+                                        <select name="snb_klasse" id="snb_klasse">
+                                            <option value="" selected disabled>Bitte wählen</option>
+                                            <option value="orthognath">orthognathe</option>
+                                            <option value="retrognath">retrognathe</option>
+                                            <option value="prognath">prognathe</option>
+                                        </select>
+                                    </div>
+                                    <span class="suffix-text">Mandibula nach SNB</span>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- ANB -->
+                        <tr>
+                            <td>ANB</td>
+                            <td>2</td>
+                            <td>2</td>
+                            <td><input class="frs_input" readonly id="winkel_anb" type="text" placeholder="Grad"></td>
+                            <td>
+                                <div class="assess">
+                                    <div class="assess-row">
+                                        <select name="anb_grad" id="anb_grad">
+                                            <option value="" selected disabled>Bitte wählen</option>
+                                            <option value="-">-</option>
+                                            <option value="tendentiell">tendentiell</option>
+                                            <option value="manifest">manifest</option>
+                                            <option value="extrem">extrem</option>
+                                        </select>
+                                    </div>
+                                    <div class="assess-row">
+                                        <select name="anb_klasse" id="anb_klasse">
+                                            <option value="" selected disabled>Bitte wählen</option>
+                                            <option value="neutralbasal">neutralbasale</option>
+                                            <option value="distalbasal">distalbasale</option>
+                                            <option value="mesialbasal">mesialbasale</option>
+                                        </select>
+                                    </div>
+                                    <span class="suffix-text">Kieferrelation nach ANB</span>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- NL-NSL -->
+                        <tr>
+                            <td>NL-NSL</td>
+                            <td>8,5</td>
+                            <td>3</td>
+                            <td><input class="frs_input" readonly id="winkel_nlnsl" type="text" placeholder="Grad"></td>
+                            <td>
+                                <div class="assess">
+                                    <div class="assess-row">
+                                        <select name="nlnsl_grad" id="nlnsl_grad">
+                                            <option value="" selected disabled>Bitte wählen</option>
+                                            <option value="-">-</option>
+                                            <option value="tendentiell">tendentiell</option>
+                                            <option value="manifest">manifest</option>
+                                            <option value="extrem">extrem</option>
+                                        </select>
+                                    </div>
+                                    <div class="assess-row">
+                                        <select name="nlnsl_klasse" id="nlnsl_klasse">
+                                            <option value="" selected disabled>Bitte wählen</option>
+                                            <option value="neutral">neutrale</option>
+                                            <option value="anterior">anteriore</option>
+                                            <option value="posterior">posteriore</option>
+                                        </select>
+                                    </div>
+                                    <span class="suffix-text">Inklination der Maxilla</span>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- ML-NSL -->
+                        <tr>
+                            <td>ML-NSL</td>
+                            <td>32</td>
+                            <td>6</td>
+                            <td><input class="frs_input" readonly id="winkel_mlnsl" type="text" placeholder="Grad"></td>
+                            <td>
+                                <div class="assess">
+                                    <div class="assess-row">
+                                        <select name="mlnsl_grad" id="mlnsl_grad">
+                                            <option value="" selected disabled>Bitte wählen</option>
+                                            <option value="-">-</option>
+                                            <option value="tendentiell">tendentiell</option>
+                                            <option value="manifest">manifest</option>
+                                            <option value="extrem">extrem</option>
+                                        </select>
+                                    </div>
+                                    <div class="assess-row">
+                                        <select name="mlnsl_klasse" id="mlnsl_klasse">
+                                            <option value="" selected disabled>Bitte wählen</option>
+                                            <option value="neutral">neutrale</option>
+                                            <option value="anterior">anteriore</option>
+                                            <option value="posterior">posteriore</option>
+                                        </select>
+                                    </div>
+                                    <span class="suffix-text">Inklination der Mandibula</span>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- ML-NL -->
+                        <tr>
+                            <td>ML-NL</td>
+                            <td>23,5</td>
+                            <td>3</td>
+                            <td><input class="frs_input" readonly id="winkel_mlnl" type="text" placeholder="Grad"></td>
+                            <td>
+                                <div class="assess">
+                                    <div class="assess-row">
+                                        <select name="mlnl_grad" id="mlnl_grad">
+                                            <option value="" selected disabled>Bitte wählen</option>
+                                            <option value="-">-</option>
+                                            <option value="tendentiell">tendentiell</option>
+                                            <option value="manifest">manifest</option>
+                                            <option value="extrem">extrem</option>
+                                        </select>
+                                    </div>
+                                    <div class="assess-row">
+                                        <select name="mlnl_klasse" id="mlnl_klasse">
+                                            <option value="" selected disabled>Bitte wählen</option>
+                                            <option value="unauffaellig">unauffälliger</option>
+                                            <option value="vergroessert">vergrößerter</option>
+                                            <option value="verkleinert">verkleinerter</option>
+                                        </select>
+                                    </div>
+                                    <span class="suffix-text">Basiswinkel</span>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Kieferwinkel -->
+                        <tr>
+                            <td>Kieferwinkel</td>
+                            <td>126</td>
+                            <td>10</td>
+                            <td><input class="frs_input" readonly id="winkel_kieferw" type="text" placeholder="Grad"></td>
+                            <td>
+                                <div class="assess">
+                                    <div class="assess-row">
+                                        <select name="kieferw_grad" id="kieferw_grad">
+                                            <option value="" selected disabled>Bitte wählen</option>
+                                            <option value="-">-</option>
+                                            <option value="tendentiell">tendentiell</option>
+                                            <option value="manifest">manifest</option>
+                                            <option value="extrem">extrem</option>
+                                        </select>
+                                    </div>
+                                    <div class="assess-row">
+                                        <select name="kieferw_klasse" id="kieferw_klasse">
+                                            <option value="" selected disabled>Bitte wählen</option>
+                                            <option value="unauffaellig">unauffälliger</option>
+                                            <option value="vergroessert">vergrößerter</option>
+                                            <option value="verkleinert">verkleinerter</option>
+                                        </select>
+                                    </div>
+                                    <span class="suffix-text">Kieferwinkel</span>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- IOK-NL -->
+                        <tr>
+                            <td>IOK-NL</td>
+                            <td>112,5</td>
+                            <td>3</td>
+                            <td><input class="frs_input" readonly id="winkel_ioknl" type="text" placeholder="Grad"></td>
+                            <td>
+                                <div class="assess">
+                                    <div class="assess-row">
+                                        <select name="ioknl_grad" id="ioknl_grad">
+                                            <option value="" selected disabled>Bitte wählen</option>
+                                            <option value="-">-</option>
+                                            <option value="tendentiell">tendentiell</option>
+                                            <option value="manifest">manifest</option>
+                                            <option value="extrem">extrem</option>
+                                        </select>
+                                    </div>
+                                    <div class="assess-row">
+                                        <select name="ioknl_klasse" id="ioknl_klasse">
+                                            <option value="" selected disabled>Bitte wählen</option>
+                                            <option value="regelrecht">regelrecht</option>
+                                            <option value="protrudiert">protrudiert</option>
+                                            <option value="retrudiert">retrudiert</option>
+                                        </select>
+                                    </div>
+                                    <span class="suffix-text">stehende OK-Front</span>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- IUK-ML -->
+                        <tr>
+                            <td>IUK-ML</td>
+                            <td>90</td>
+                            <td>3</td>
+                            <td><input class="frs_input" readonly id="winkel_iukml" type="text" placeholder="Grad"></td>
+                            <td>
+                                <div class="assess">
+                                    <div class="assess-row">
+                                        <select name="iukml_grad" id="iukml_grad">
+                                            <option value="" selected disabled>Bitte wählen</option>
+                                            <option value="-">-</option>
+                                            <option value="tendentiell">tendentiell</option>
+                                            <option value="manifest">manifest</option>
+                                            <option value="extrem">extrem</option>
+                                        </select>
+                                    </div>
+                                    <div class="assess-row">
+                                        <select name="iukml_klasse" id="iukml_klasse">
+                                            <option value="" selected disabled>Bitte wählen</option>
+                                            <option value="regelrecht">regelrecht</option>
+                                            <option value="protrudiert">protrudiert</option>
+                                            <option value="retrudiert">retrudiert</option>
+                                        </select>
+                                    </div>
+                                    <span class="suffix-text">stehende UK-Front</span>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- IOK-IUK -->
+                        <tr>
+                            <td>IOK-IUK</td>
+                            <td>131</td>
+                            <td>6</td>
+                            <td><input class="frs_input" readonly id="winkel_iokiuk" type="text" placeholder="Grad"></td>
+                            <td>
+                                <div class="assess">
+                                    <div class="assess-row">
+                                        <select name="iokiuk_grad" id="iokiuk_grad">
+                                            <option value="" selected disabled>Bitte wählen</option>
+                                            <option value="-">-</option>
+                                            <option value="tendentiell">tendentiell</option>
+                                            <option value="manifest">manifest</option>
+                                            <option value="extrem">extrem</option>
+                                        </select>
+                                    </div>
+                                    <div class="assess-row">
+                                        <select name="iokiuk_klasse" id="iokiuk_klasse">
+                                            <option value="" selected disabled>Bitte wählen</option>
+                                            <option value="regelrecht">regelrechter</option>
+                                            <option value="vergroessert">vergrößerter</option>
+                                            <option value="verkleinert">verkleinerter</option>
+                                        </select>
+                                    </div>
+                                    <span class="suffix-text">Interinzisalwinkel</span>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- N′-Sn-Pg′ -->
+                        <tr>
+                            <td>N′-Sn-Pg′</td>
+                            <td>162</td>
+                            <td>6</td>
+                            <td><input class="frs_input" readonly id="winkel_nsnpg" type="text" placeholder="Grad"></td>
+                            <td>
+                                <div class="assess">
+                                    <div class="assess-row">
+                                        <select name="nsnpg_grad" id="nsnpg_grad">
+                                            <option value="" selected disabled>Bitte wählen</option>
+                                            <option value="-">-</option>
+                                            <option value="tendentiell">tendentiell</option>
+                                            <option value="manifest">manifest</option>
+                                            <option value="extrem">extrem</option>
+                                        </select>
+                                    </div>
+                                    <div class="assess-row">
+                                        <select name="nsnpg_klasse" id="nsnpg_klasse">
+                                            <option value="" selected disabled>Bitte wählen</option>
+                                            <option value="regelrecht">regelrechte</option>
+                                            <option value="vergroessert">vergrößerte</option>
+                                            <option value="verkleinert">verkleinerte</option>
+                                        </select>
+                                    </div>
+                                    <span class="suffix-text">Gesichtskonvexität</span>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Nasolabialwinkel -->
+                        <tr>
+                            <td>Nasolabialwinkel</td>
+                            <td>110</td>
+                            <td>9</td>
+                            <td><input class="frs_input" readonly id="winkel_nasolabialw" type="text" placeholder="Grad"></td>
+                            <td>
+                                <div class="assess">
+                                    <div class="assess-row">
+                                        <select name="nasolabial_grad" id="nasolabial_grad">
+                                            <option value="" selected disabled>Bitte wählen</option>
+                                            <option value="-">-</option>
+                                            <option value="tendentiell">tendentiell</option>
+                                            <option value="manifest">manifest</option>
+                                            <option value="extrem">extrem</option>
+                                        </select>
+                                    </div>
+                                    <div class="assess-row">
+                                        <select name="nasolabial_klasse" id="nasolabial_klasse">
+                                            <option value="" selected disabled>Bitte wählen</option>
+                                            <option value="regelrecht">regelrechter</option>
+                                            <option value="vergroessert">vergrößerter</option>
+                                            <option value="verkleinert">verkleinerter</option>
+                                        </select>
+                                    </div>
+                                    <span class="suffix-text">Nasolabialwinkel</span>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div style="height: 20px"></div>
+            </div>
+        </div>
+
+        <div data-href="index.php" id="value_btn">Lösungen anzeigen</div>
+        <div data-href="index.php" id="next_btn" class="inactive">Beenden</div>
+    </div>
+</div>
+
+<script src="js/getWinkelEingabe.js"></script>
+<script src="js/saveFRSDiagnose.js"></script>
+
+<script src="js/loadFall.js"></script>
+<script src="js/reviewMode.js"></script>
+
+<script>
+    function resizeIframe(obj) {
+        obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+    }
+</script>
+
+</body>
+</html>

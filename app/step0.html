@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Step 1 - Ortho Campus</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/logoNavigation.js"></script>
+
+    <style>
+        #zoom_target1 {
+            touch-action: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        canvas {
+            touch-action: none;
+        }
+        .delete-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            background: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+        }
+
+        .delete-btn.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .delete-btn:hover {
+            background: #cc0000;
+        }
+
+        /* Hilfe-Modal */
+        .help-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .help-modal.active {
+            display: flex;
+        }
+
+        .help-modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            position: relative;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .help-modal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #18ceff;
+        }
+
+        .help-modal-header i {
+            font-size: 28px;
+            color: #18ceff;
+            margin-right: 12px;
+        }
+
+        .help-modal-header h3 {
+            margin: 0;
+            font-size: 22px;
+            color: #333;
+        }
+
+        .help-modal-body {
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .help-modal-body h4 {
+            color: orange;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .help-modal-body ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .help-modal-body li {
+            margin: 8px 0;
+        }
+
+        .help-modal-body strong {
+            color: #333;
+        }
+
+        .help-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: #999;
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.2s ease;
+        }
+
+        .help-close-btn:hover {
+            color: #333;
+        }
+
+        /* Hilfe-Buttons orange */
+        #help-btn-enfance,
+        #help-btn-profil {
+            background-color: orange;
+        }
+
+        #help-btn-enfance:hover,
+        #help-btn-profil:hover {
+            background-color: #ff8c00;
+        }
+    </style>
+
+</head>
+<body>
+
+<div id="wrapper">
+    <div id="top">
+        <a href="index.php" id="logo"><img class="logo_img" src="images/orthocampus_divers.svg"></a>
+        <div id="patientName"></div>
+        <div class="avmz_logo"><img src="images/avmz_logo.svg"></div>
+    </div>
+
+    <div id="title">
+        <h2>Extraorale Profilanalyse</h2>
+        <p>Führen Sie eine vollständige extraorale Analyse des Gesichts enface unter Berücksichtigung der kollmanschen Proportionen und des Profils mit Angabe des Gesichtskonvexität- und Nasiolabialwinkels.</p>
+    </div>
+
+    <div class="model drei">
+        <div class="image_line_container">
+            <div class="auswahl">
+                <div id="point1" class="active">Punkt</div>
+            </div>
+
+            <div id="lines_enfance" class="lines_container">
+                <div class="zoom_target" id="zoom_target1">
+                    <img id="linien_img1" src="images/front.png">
+                    <canvas id="lines1"></canvas>
+                </div>
+                <div class="zoom_controls">
+                    <button id="zoom_in"><i class="fa fa-search-plus"></i></button>
+                    <button id="zoom_out"><i class="fa fa-search-minus"></i></button>
+                    <button id="reset_zoom"><i class="fa fa-undo-alt"></i></button>
+                    <button id="move_mode"><i class="fas fa-arrows-alt"></i></button>
+                    <!-- NEU: Hilfe-Button für Enface -->
+                    <button id="help-btn-enfance" title="Hilfe anzeigen"><i class="fas fa-question-circle"></i></button>
+                </div>
+
+                <!-- NEU: Löschen-Button für Punkte -->
+                <button id="delete-btn-enfance" class="delete-btn">Punkte löschen</button>
+            </div>
+            <div id="liste1">
+            </div>
+        </div>
+
+        <div class="image_line_container">
+
+            <div class="auswahl">
+                <div class="auswahl_tab active" data-id="winkel">Winkel</div>
+            </div>
+
+            <div id="lines_enfance" class="lines_container3">
+                <div class="zoom_target" id="zoom_target3">
+                    <img id="linien_img3" src="images/side.png">
+                    <canvas id="lines3"></canvas>
+                </div>
+                <div class="zoom_controls">
+                    <button id="zoom_in3"><i class="fa fa-search-plus"></i></button>
+                    <button id="zoom_out3"><i class="fa fa-search-minus"></i></button>
+                    <button id="reset_zoom3"><i class="fa fa-undo-alt"></i></button>
+                    <button id="move_mode3"><i class="fas fa-arrows-alt"></i></button>
+                    <!-- Hilfe-Button für Profil -->
+                    <button id="help-btn-profil" title="Hilfe anzeigen"><i class="fas fa-question-circle"></i></button>
+                </div>
+
+                <button id="delete-btn-profil" class="delete-btn">Element löschen</button>
+
+                <div id="delete-dialog">
+                    <p id="delete-message" style="margin-bottom: 15px;"></p>
+                    <div>
+                        <button id="confirm-delete" style="margin-right: 10px;">Ja</button>
+                        <button id="cancel-delete">Nein</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="anzeige" class="inactive">
+        <!--        <div id="saveLines">Speichern</div>-->
+    </div>
+
+    <div class="editor">
+        <div class="editor_steps">
+            <div class="step_cont" id="step1">
+
+                <div class="input_cont step0" id="step_description">
+                    <label for="gesichtsprofil">Gesichtsprofil:</label><br>
+                    <input class="input_winkel" id="gesichtsprofil_winkel" type="text" placeholder="Winkel in Grad"></input><br>
+                    <input class="input_winkel2"  type="text" id="gesichtsprofil_expl" name="gesichtsprofil_expl"></input><br>
+                </div>
+                <div class="input_cont step0" id="step_description">
+                    <label for="nasolabialwinkel">Nasolabialwinkel:</label><br>
+                    <input class="input_winkel" id="nasolabialwinkel_winkel" type="text" placeholder="Winkel in Grad"></input><br>
+                    <input class="input_winkel2" type="text" id="nasolabialwinkel_expl" name="nasolabialwinkel_expl"></input><br>
+                </div>
+
+
+                <div class="input_cont step0" id="step_description">
+                    <label for="ges_en">Gesicht enface:</label><br>
+                    <input class="step0_input" type="text" id="ges_en" name="ges_en"></input><br>
+                </div>
+                <div class="input_cont step0" id="step_description">
+                    <label for="lip_pro">Lippenprofil:</label><br>
+                    <input class="step0_input" type="text" id="lip_pro" name="lip_pro"></input><br>
+                </div>
+            </div>
+        </div>
+
+        <div data-href="step_orthopantogramm.html" id="value_btn">Lösungen anzeigen</div>
+        <div data-href="step_orthopantogramm.html" id="next_btn" class="inactive">Zum nächsten Schritt</div>
+
+    </div>
+</div>
+
+<!-- NEU: Hilfe-Modal für Enface (Gesicht) -->
+<div id="help-modal-enfance" class="help-modal">
+    <div class="help-modal-content">
+        <button class="help-close-btn" id="help-close-btn-enfance">&times;</button>
+
+        <div class="help-modal-header">
+            <i class="fas fa-info-circle"></i>
+            <h3>Anleitung zu Gesichtsdrittel</h3>
+        </div>
+
+        <div class="help-modal-body">
+            <h4>📍 Punkte setzen</h4>
+            <p>Setzen Sie <strong>vier Punkte</strong> auf dem Gesichtsbild, um die Gesichtsdrittel zu berechnen:</p>
+            <ul>
+                <li>Die Punkte definieren die horizontalen Linien für die Gesichtsproportionen</li>
+                <li>Nach dem Setzen der Punkte werden automatisch die Gesichtsdrittel berechnet und angezeigt</li>
+            </ul>
+
+            <h4>✏️ Punkte bearbeiten</h4>
+            <p>Bereits gesetzte Punkte können Sie nachträglich anpassen:</p>
+            <ul>
+                <li><strong>Punkte verschieben:</strong> Klicken und ziehen Sie auf einem Punkt, um ihn neu zu positionieren</li>
+                <li>Die Berechnungen werden automatisch aktualisiert</li>
+            </ul>
+
+            <h4>🗑️ Alles löschen und neu beginnen</h4>
+            <p>Um alle Punkte zu entfernen und von vorne zu beginnen:</p>
+            <ul>
+                <li>Klicken Sie auf einen beliebigen Punkt, um ihn auszuwählen</li>
+                <li>Der Button "Punkte löschen" wird aktiv</li>
+                <li>Klicken Sie auf den Button, um alle Punkte zu entfernen und neu zu starten</li>
+            </ul>
+
+            <h4>🔄 Wichtiger Hinweis zum Modus-Wechsel</h4>
+            <p><strong>Nachdem Sie gezoomt oder das Bild verschoben haben:</strong></p>
+            <ul>
+                <li>Klicken Sie oben auf <strong>"Punkt"</strong>, um wieder in den Punkt-Modus zu wechseln</li>
+                <li>Erst dann können Sie wieder neue Punkte setzen oder bestehende bearbeiten</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Hilfe-Modal für Profil (Winkel) -->
+<div id="help-modal-profil" class="help-modal">
+    <div class="help-modal-content">
+        <button class="help-close-btn" id="help-close-btn-profil">&times;</button>
+
+        <div class="help-modal-header">
+            <i class="fas fa-info-circle"></i>
+            <h3>Anleitung zur Winkelmessung</h3>
+        </div>
+
+        <div class="help-modal-body">
+            <h4>📐 Winkel erstellen</h4>
+            <p>Sie haben zwei Möglichkeiten, Winkel einzuzeichnen:</p>
+            <ul>
+                <li><strong>Linien ziehen:</strong> Zeichnen Sie zwei Linien, indem Sie mit gedrückter Maustaste oder dem Apple Pencil ziehen. Wenn sich die Linien schneiden, wird automatisch ein Winkel berechnet.</li>
+                <li><strong>Punkte setzen:</strong> Klicken Sie drei Punkte nacheinander (ohne Ziehen). Der zweite Punkt ist der Scheitelpunkt des Winkels.</li>
+            </ul>
+
+            <h4>✏️ Winkel bearbeiten</h4>
+            <p>Bereits erstellte Winkel können Sie nachträglich anpassen:</p>
+            <ul>
+                <li><strong>Ganzen Winkel verschieben:</strong> Klicken und ziehen Sie auf einer der Winkellinien.</li>
+                <li><strong>Einzelne Punkte verschieben:</strong> Klicken und ziehen Sie auf einem der drei Endpunkte des Winkels.</li>
+            </ul>
+
+            <h4>🗑️ Winkel löschen</h4>
+            <p>Wählen Sie einen Winkel aus (durch Klick auf einen Punkt oder eine Linie) und klicken Sie dann auf den Button "Element löschen".</p>
+
+            <h4>🔄 Wichtiger Hinweis zum Modus-Wechsel</h4>
+            <p><strong>Nachdem Sie gezoomt oder das Bild verschoben haben:</strong></p>
+            <ul>
+                <li>Klicken Sie oben auf <strong>"Winkel"</strong>, um wieder in den Winkel-Modus zu wechseln</li>
+                <li>Erst dann können Sie wieder neue Winkel zeichnen oder bestehende bearbeiten</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Hilfe-Modal Funktionalität für beide Bereiche
+    $(document).ready(function() {
+        // Enface Hilfe
+        $('#help-btn-enfance').on('click', function() {
+            $('#help-modal-enfance').addClass('active');
+        });
+
+        $('#help-close-btn-enfance').on('click', function() {
+            $('#help-modal-enfance').removeClass('active');
+        });
+
+        // Profil Hilfe
+        $('#help-btn-profil').on('click', function() {
+            $('#help-modal-profil').addClass('active');
+        });
+
+        $('#help-close-btn-profil').on('click', function() {
+            $('#help-modal-profil').removeClass('active');
+        });
+
+        // Modal schließen bei Klick außerhalb
+        $('.help-modal').on('click', function(e) {
+            if ($(e.target).hasClass('help-modal')) {
+                $(this).removeClass('active');
+            }
+        });
+
+        // Modal schließen mit ESC-Taste
+        $(document).on('keydown', function(e) {
+            if (e.key === 'Escape') {
+                $('.help-modal').removeClass('active');
+            }
+        });
+    });
+</script>
+
+<script src="js/setImagesStep0.js"></script>
+
+<script src="js/btns.js"></script>
+<script src="js/getValuesStep0.js"></script>
+
+<script src="js/loadFall.js"></script>
+
+
+<script src="js/step0.js"></script>
+<script src="js/step0_3.js"></script>
+
+<script src="js/reviewMode.js"></script>
+<script src="js/reviewModeCanvas.js"></script>
+
+
+
+
+</body>
+</html>

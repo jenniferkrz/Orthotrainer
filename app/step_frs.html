@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FRS - Ortho Campus</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/logoNavigation.js"></script>
+    <style>
+
+        #title{
+            position: relative;
+        }
+        /* ==========================================
+   FRS Page Styles - Updated Line Submenu
+   ========================================== */
+
+        .delete-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            background: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease, background 0.2s ease;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .delete-btn.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .delete-btn:hover {
+            background: #cc0000;
+        }
+
+        .delete-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* ==========================================
+           Kalibrierungs-Status Anzeige
+           ========================================== */
+        .calibration-info {
+            display: none;
+            margin-top: 10px;
+            padding: 8px 12px;
+            background: rgba(0, 255, 0, 0.1);
+            border-left: 3px solid #00ff00;
+            border-radius: 4px;
+            font-size: 11px;
+            color: #aaa;
+        }
+
+        .calibration-info.not-calibrated {
+            background: rgba(255, 153, 0, 0.1);
+            border-left-color: #ff9900;
+            color: #ff9900;
+        }
+
+        .calibration-info i {
+            margin-right: 5px;
+        }
+
+        /* ==========================================
+           Winkel-Optionen
+           ========================================== */
+        .winkel_options {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        .winkel_options.visible {
+            display: flex;
+            justify-content: end;
+        }
+
+        .toggle_label {
+            user-select: none;
+            cursor: pointer;
+        }
+
+        /* Toggle Switch Style */
+        .toggle_switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 22px;
+            flex-shrink: 0;
+        }
+
+        .toggle_switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle_slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #444;
+            transition: 0.3s;
+            border-radius: 22px;
+        }
+
+        .toggle_slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+
+        .toggle_switch input:checked + .toggle_slider {
+            background-color: #ff5555;
+        }
+
+        .toggle_switch input:checked + .toggle_slider:before {
+            transform: translateX(18px);
+        }
+
+        /* ==========================================
+      Linien-Submenu Styles (FIXED)
+      ========================================== */
+        .auswahl_tab {
+            position: relative;
+        }
+
+        .line_submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: rgba(30, 30, 30, 0.98);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            box-sizing: border-box;
+        }
+
+        .line_submenu.visible {
+            display: block;
+            width: 90%;
+            background-color: color(srgb 0.9181 0.9797 1)!important;
+        }
+
+        .line_sub_btn {
+            display: block;
+            width: 100%!important;
+            padding: 10px 15px;
+            text-align: center;
+            color: color(srgb 0 0.3289 0.6252)!important;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 13px;
+            box-sizing: border-box;
+        }
+
+        .line_sub_btn:last-child {
+            border-bottom: none;
+        }
+
+        .line_sub_btn:hover {
+            background: rgba(24, 206, 255, 0.15);
+            color: #18ceff;
+        }
+
+        .line_sub_btn.active {
+            background: rgba(24, 206, 255, 0.25);
+            color: #18ceff;
+            font-weight: 600;
+        }
+
+        .line_sub_btn i {
+            margin-right: 8px;
+            width: 16px;
+            text-align: center;
+        }
+
+        @media (pointer: coarse) {
+            .line_sub_btn {
+                padding: 14px 15px;
+            }
+        }
+
+        /* ==========================================
+           Info-Leiste für aktiven Linien-Modus
+           ========================================== */
+        .line_mode_info {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 15px;
+            background: rgba(24, 206, 255, 0.1);
+            border-bottom: 1px solid rgba(24, 206, 255, 0.2);
+            font-size: 12px;
+            color: #18ceff;
+        }
+
+        .line_mode_info.visible {
+            display: flex;
+            justify-content: center;
+        }
+
+        .line_mode_info i {
+            margin-right: 5px;
+        }
+
+        /* ==========================================
+           Senkrechte-Modus Hinweis
+           ========================================== */
+        .senkrechte_hint {
+            display: none;
+            padding: 10px 15px;
+            background: rgba(255, 153, 0, 0.15);
+            border-bottom: 1px solid rgba(255, 153, 0, 0.3);
+            font-size: 12px;
+            color: #ff9900;
+            text-align: center;
+        }
+
+        .senkrechte_hint.visible {
+            display: none!important;
+        }
+
+        /* ==========================================
+           Globaler Hilfe-Button
+           ========================================== */
+        .auswahl {
+            position: relative;
+        }
+
+        .global-help-btn {
+            position: absolute;
+            right: -40px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 84, 159, 1);
+            border: 2px solid rgba(255, 165, 0, 1);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+
+        .global-help-btn:hover {
+            background: rgba(255, 165, 0, 1);
+            border-color: rgb(94, 63, 8);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        /* ==========================================
+           Hilfe-Modal
+           ========================================== */
+        .help-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .help-modal-overlay.visible {
+            display: flex;
+        }
+
+        .help-modal {
+            background: #1a1a1a;
+            border-radius: 12px;
+            max-width: 520px;
+            width: 100%;
+            padding: 24px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .help-modal h3 {
+            margin: 0 0 20px 0;
+            color: #fff;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 15px;
+        }
+
+        .help-modal h3 i {
+            color: #18ceff;
+        }
+
+        .help-section {
+            margin-bottom: 20px;
+        }
+
+        .help-section-title {
+            font-size: 13px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .help-section-title::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .help-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 12px;
+            padding: 12px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+            border-left: 3px solid;
+        }
+
+        .help-item.punkt {
+            border-left-color: #18ceff;
+        }
+        .help-item.punkt i {
+            color: #18ceff;
+        }
+
+        .help-item.linie {
+            border-left-color: #18ceff;
+        }
+        .help-item.linie i {
+            color: #18ceff;
+        }
+
+        .help-item.senkrechte {
+            border-left-color: #ff9900;
+        }
+        .help-item.senkrechte i {
+            color: #ff9900;
+        }
+
+        .help-item.wits {
+            border-left-color: #67ff18;
+        }
+        .help-item.wits i {
+            color: #67ff18;
+        }
+
+        .help-item.winkel {
+            border-left-color: #67ff18;
+        }
+        .help-item.winkel i {
+            color: #67ff18;
+        }
+
+        .help-item i {
+            font-size: 16px;
+            width: 22px;
+            text-align: center;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .help-item-content {
+            flex: 1;
+        }
+
+        .help-item strong {
+            display: block;
+            margin-bottom: 4px;
+            color: #fff;
+            font-size: 13px;
+        }
+
+        .help-item p {
+            margin: 0;
+            font-size: 12px;
+            color: #aaa;
+            line-height: 1.5;
+        }
+
+        .help-tip {
+            background: rgba(24, 206, 255, 0.1);
+            border: 1px solid rgba(24, 206, 255, 0.2);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 15px;
+            font-size: 12px;
+            color: #18ceff;
+        }
+
+        .help-tip i {
+            margin-right: 8px;
+        }
+
+        .help-close-btn {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            background: #18ceff;
+            border: none;
+            border-radius: 6px;
+            color: #000;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .help-close-btn:hover {
+            background: #00b8e6;
+        }
+
+        /* ==========================================
+           Mobile / Touch Anpassungen
+           ========================================== */
+        @media (pointer: coarse) {
+            .delete-btn {
+                padding: 12px 24px;
+                font-size: 15px;
+            }
+
+            .line_sub_btn {
+                padding: 14px 15px;
+            }
+
+            .global-help-btn {
+                width: 34px;
+                height: 34px;
+                font-size: 16px;
+                right: -45px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .global-help-btn {
+                right: 5px;
+                top: -35px;
+                transform: none;
+            }
+
+            .help-modal {
+                padding: 18px;
+            }
+
+            .help-item {
+                padding: 10px;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="wrapper">
+
+    <div id="top">
+        <a href="index.php" id="logo"><img class="logo_img" src="images/orthocampus_divers.svg"></a>
+        <div id="patientName"></div>
+        <div class="avmz_logo"><img src="images/avmz_logo.svg"></div>
+    </div>
+
+    <div id="title">
+        <h2>FRS</h2>
+        <p>Führen Sie die kephalometrische Analyse des Fernröntgenseitenbildes durch.</p>
+        <button class="global-help-btn" id="global_help_btn" title="Hilfe zur Bedienung">?</button>
+
+    </div>
+
+    <div class="flex_frs">
+        <div class="model drei">
+            <div class="frs_line_container">
+                <div class="auswahl">
+                    <div class="auswahl_tab" data-id="point">Punkt</div>
+                    <div class="auswahl_tab" data-id="line">
+                        Linie
+                        <div class="line_submenu" id="line_submenu">
+                            <div class="line_sub_btn active" data-subtype="linie">
+                                <i class="fas fa-minus"></i>Linie
+                            </div>
+                            <div class="line_sub_btn" data-subtype="senkrechte">
+                                <i class="fas fa-ruler-combined"></i>Senkrechte
+                            </div>
+                            <div class="line_sub_btn" data-subtype="wits">
+                                <i class="fas fa-ruler"></i>WITS (mm)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="auswahl_tab active" data-id="winkel">Winkel</div>
+                </div>
+
+                <!-- NEU: Winkel-Optionen (nur sichtbar im Winkel-Modus) -->
+                <div class="winkel_options" id="winkel_options">
+                    <label class="toggle_switch">
+                        <input type="checkbox" id="toggle_angle_checkbox">
+                        <span class="toggle_slider"></span>
+                    </label>
+                    <span class="toggle_label">Gegenwinkel anzeigen <br> (360° − α)</span>
+                </div>
+
+                <!-- Info-Leiste für Linien-Modus -->
+                <div class="line_mode_info" id="line_mode_info">
+                    <i class="fas fa-info-circle"></i>
+                    <span id="line_mode_text">Linie ohne mm-Anzeige</span>
+                </div>
+
+                <!-- Hinweis für Senkrechte-Modus -->
+                <div class="senkrechte_hint" id="senkrechte_hint">
+                    <i class="fas fa-exclamation-circle"></i>
+                    Klicken Sie auf einen Punkt – von dort wird eine Senkrechte zur nächsten Linie gezeichnet. Der Endpunkt wird automatisch im rechten Winkel auf die Linie projiziert.
+                </div>
+
+                <div class="lines_container" id="container">
+                    <div class="frs_target" id="zoomTarget">
+                        <img id="linien_img1" src="images/frs7.png" style="width:100%; height:auto;">
+                        <canvas id="frs_canvas"></canvas>
+                    </div>
+                    <button id="delete-btn-frs" class="delete-btn">
+                        <i class="fas fa-trash-alt"></i> Element löschen
+                    </button>
+                    <div class="zoom_controls">
+                        <button id="zoom_in3"><i class="fa fa-search-plus"></i></button>
+                        <button id="zoom_out3"><i class="fa fa-search-minus"></i></button>
+                        <button id="reset_zoom3"><i class="fa fa-undo-alt"></i></button>
+                        <button id="move_mode3"><i class="fas fa-arrows-alt"></i></button>
+                        <button id="einbl" class="clicked"><i class="fa fa-eye-slash"></i></button>
+                    </div>
+                </div>
+
+                <!-- Kalibrierungs-Status Info -->
+                <div id="calibration_info" class="calibration-info not-calibrated">
+                    <i class="fa fa-info-circle"></i> Kalibrierung wird geladen...
+                </div>
+
+            </div>
+        </div>
+
+        <div class="editor">
+            <div class="editor_steps">
+                <div class="step_cont" id="step1">
+                    <h3>Winkel:</h3>
+
+                    <div class="input_cont" id="step_description">
+                        <label class="frs_label"  for="winkel_sna">SNA (Grad):</label><br>
+                        <input class="frs_input" id="winkel_sna" type="text" placeholder="Winkel in Grad"></input><br>
+                    </div>
+                    <div class="input_cont" id="step_description">
+                        <label class="frs_label"  for="winkel_snb">SNB (Grad):</label><br>
+                        <input class="frs_input" id="winkel_snb" type="text" placeholder="Winkel in Grad"></input><br>
+                    </div>
+                    <div class="input_cont" id="step_description">
+                        <label class="frs_label"  for="winkel_anb">ANB (Grad):</label><br>
+                        <input class="frs_input" id="winkel_anb" type="text" placeholder="Winkel in Grad"></input><br>
+                    </div>
+                    <div class="input_cont" id="step_description">
+                        <label class="frs_label"  for="winkel_nlnsl">NL-NSL (Grad):</label><br>
+                        <input class="frs_input" id="winkel_nlnsl" type="text" placeholder="Winkel in Grad"></input><br>
+                    </div>
+                    <div class="input_cont" id="step_description">
+                        <label class="frs_label"  for="winkel_mlnsl">ML-NSL (Grad):</label><br>
+                        <input class="frs_input" id="winkel_mlnsl" type="text" placeholder="Winkel in Grad"></input><br>
+                    </div>
+                    <div class="input_cont" id="step_description">
+                        <label class="frs_label"  for="winkel_mlnl">ML-NL (Grad):</label><br>
+                        <input class="frs_input" id="winkel_mlnl" type="text" placeholder="Winkel in Grad"></input><br>
+                    </div>
+                    <div class="input_cont" id="step_description">
+                        <label class="frs_label"  for="winkel_kieferw">Kieferwinkel (Grad):</label><br>
+                        <input class="frs_input" id="winkel_kieferw" type="text" placeholder="Winkel in Grad"></input><br>
+                    </div>
+                    <div class="input_cont" id="step_description">
+                        <label class="frs_label"  for="winkel_ioknl">IOK-NL (Grad):</label><br>
+                        <input class="frs_input" id="winkel_ioknl" type="text" placeholder="Winkel in Grad"></input><br>
+                    </div>
+                    <div class="input_cont" id="step_description">
+                        <label class="frs_label"  for="winkel_iukml">IUK-ML (Grad):</label><br>
+                        <input class="frs_input" id="winkel_iukml" type="text" placeholder="Winkel in Grad"></input><br>
+                    </div>
+                    <div class="input_cont" id="step_description">
+                        <label class="frs_label"  for="winkel_iokiuk">IOK-IUK (Grad):</label><br>
+                        <input class="frs_input" id="winkel_iokiuk" type="text" placeholder="Winkel in Grad"></input><br>
+                    </div>
+                    <div class="input_cont" id="step_description">
+                        <label class="frs_label"  for="winkel_nsnpg">N'-Sn-Pg' (Grad):</label><br>
+                        <input class="frs_input" id="winkel_nsnpg" type="text" placeholder="Winkel in Grad"></input><br>
+                    </div>
+                    <div class="input_cont" id="step_description">
+                        <label class="frs_label"  for="winkel_nasolabialw">Nasolabialwinkel (Grad):</label><br>
+                        <input class="frs_input" id="winkel_nasolabialw" type="text" placeholder="Winkel in Grad"></input><br>
+                    </div>
+                    <div class="input_cont" id="step_description">
+                        <label class="frs_label"  for="wits">WITS (mm):</label><br>
+                        <input class="frs_input" id="wits" type="text" placeholder="WITS in mm:"></input><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-href="step_frs_diagnose.html" id="value_btn">Lösungen anzeigen</div>
+    <div data-href="step_frs_diagnose.html" id="next_btn" class="inactive">Zum nächsten Schritt</div>
+</div>
+
+<!-- Hilfe-Modal -->
+<div class="help-modal-overlay" id="help_modal">
+    <div class="help-modal">
+        <h3><i class="fas fa-question-circle"></i> Messwerkzeuge:</h3>
+
+        <!-- PUNKT -->
+        <div class="help-section">
+            <div class="help-section-title">Punkt-Werkzeug</div>
+            <div class="help-item punkt">
+                <i class="fas fa-circle"></i>
+                <div class="help-item-content">
+                    <strong>Punkt setzen & verschieben</strong>
+                    <p>Klicken Sie auf einen vorhandenen Punkt, um ihn auszuwählen. Dann klicken Sie auf die gewünschte Position, um ihn zu platzieren. Ziehen Sie den Punkt per Drag & Drop.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- LINIEN -->
+        <div class="help-section">
+            <div class="help-section-title">Linien-Werkzeuge</div>
+
+            <div class="help-item linie">
+                <i class="fas fa-minus"></i>
+                <div class="help-item-content">
+                    <strong>Linie</strong>
+                    <p>Einfache Linie. Ziehen Sie mit gedrückter Maus von Start- zu Endpunkt. Klicken Sie auf eine Linie oder ihre Endpunkte, um sie auszuwählen und zu verschieben.</p>
+                </div>
+            </div>
+
+            <div class="help-item senkrechte">
+                <i class="fas fa-ruler-combined"></i>
+                <div class="help-item-content">
+                    <strong>Senkrechte</strong>
+                    <p>Zeichnet eine Linie im exakten 90°-Winkel zu einer bestehenden Linie. Ziehen Sie eine Linie von einem Startpunkt hin zu der Linie, zu der sie senkrecht sein soll. Die Linie kann anschließend verschoben werden. </p>
+                </div>
+            </div>
+
+            <div class="help-item wits">
+                <i class="fas fa-ruler"></i>
+                <div class="help-item-content">
+                    <strong>WITS (mm)</strong>
+                    <p>Messlinie mit automatischer Längenanzeige in Millimetern. In diesem Modus können keine Linien oder Endpunkte von Linien verschoben werden. Dazu in den normalen Linien Modus wechseln! </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- WINKEL -->
+        <div class="help-section">
+            <div class="help-section-title">Winkel-Werkzeug</div>
+            <div class="help-item winkel">
+                <i class="fas fa-drafting-compass"></i>
+                <div class="help-item-content">
+                    <strong>Winkel zeichnen</strong>
+                    <p>Zeichnen Sie zwei Linien mit gedrückter Maus nacheinander – der Winkel wird automatisch am Schnittpunkt berechnet und angezeigt. Aktivieren Sie "Gegenwinkel", um 360° − α anzuzeigen.</p>
+                </div>
+            </div>
+            <div class="help-item winkel">
+                <i class="fas fa-arrows-alt"></i>
+                <div class="help-item-content">
+                    <strong>Winkel bearbeiten</strong>
+                    <p>Klicken Sie auf einen Winkelpunkt, um ihn zu verschieben. Klicken Sie auf eine Winkellinie, um den gesamten Schenkel zu bewegen. Der Winkelwert wird live aktualisiert.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="help-tip">
+            <i class="fas fa-lightbulb"></i>
+            <strong>Tipp:</strong> Rechtsklick auf ein Element öffnet die Lösch-Option. Mit dem Augen-Symbol können Sie alle Winkel ein-/ausblenden.
+        </div>
+
+        <button class="help-close-btn" id="help_close_btn">Verstanden</button>
+    </div>
+</div>
+
+<script src="js/setImagesFRS0.js"></script>
+<script src="js/btns_frs2.js"></script>
+<script src="js/getValues.js"></script>
+<script src="js/frs.js"></script>
+<script src="js/frs_zoom2.js"></script>
+<script src="js/loadFall.js"></script>
+<script src="js/reviewMode.js"></script>
+<script src="js/reviewModeFrsWinkel.js"></script>
+
+<script>
+    function resizeIframe(obj) {
+        obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+    }
+
+    // Hilfe-Modal Funktionalität
+    $(document).ready(function() {
+        // Modal öffnen
+        $("#global_help_btn").on("click", function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            $("#help_modal").addClass("visible");
+        });
+
+        // Modal schließen - Button
+        $("#help_close_btn").on("click", function() {
+            $("#help_modal").removeClass("visible");
+        });
+
+        // Modal schließen - Klick auf Overlay
+        $("#help_modal").on("click", function(e) {
+            if (e.target === this) {
+                $(this).removeClass("visible");
+            }
+        });
+
+        // Modal schließen - Escape-Taste
+        $(document).on("keydown", function(e) {
+            if (e.key === "Escape") {
+                $("#help_modal").removeClass("visible");
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

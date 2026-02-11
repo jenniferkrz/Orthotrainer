@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Step Anamnese - Ortho Campus</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/logoNavigation.js"></script>
+    <style>
+        .content{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .gallery_container {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            width: 90%;
+        }
+
+        .main_image_container {
+            flex: 2;
+            position: relative;
+            overflow: hidden;
+            background: #f9f9f9;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            height: 500px;
+        }
+
+        .main_image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.2s ease;
+            cursor: grab;
+        }
+
+        .main_image.dragging {
+            cursor: grabbing;
+        }
+
+        .zoom_controls_gallery {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 5px;
+            z-index: 10;
+        }
+
+        .zoom_btn {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: 2px solid #2c5f8d;
+            border-radius: 6px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c5f8d;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .zoom_btn:hover {
+            background: #2c5f8d;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .zoom_btn:active {
+            transform: scale(0.95);
+        }
+
+        .zoom_level {
+            background: white;
+            border: 2px solid #2c5f8d;
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #2c5f8d;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .thumbnails_container {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            overflow-y: auto;
+            max-height: 500px;
+            align-content: start;
+        }
+
+        .thumbnail_item {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .thumbnail_item:hover {
+            border-color: #2c5f8d;
+            transform: translateX(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .thumbnail_item.active {
+            border-color: #2c5f8d;
+            box-shadow: 0 4px 12px rgba(44, 95, 141, 0.3);
+        }
+
+        .thumbnail_image {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+
+        .thumbnail_caption {
+            padding: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #555;
+            background: #f9f9f9;
+        }
+
+        .checkbox_group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .checkbox_item {
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox_item label, .checkbox_item input {
+            width: auto!important;
+        }
+
+        .field_group {
+            margin-bottom: 20px;
+        }
+
+        .field_group h3 {
+            margin-bottom: 10px;
+        }
+
+        .subsection {
+            margin-bottom: 15px;
+        }
+
+        .subsection_title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<div id="wrapper">
+    <div id="top">
+        <a href="index.php" id="logo"><img class="logo_img" src="images/orthocampus_divers.svg"></a>
+        <div id="patientName"></div>
+        <div class="avmz_logo"><img src="images/avmz_logo.svg"></div>
+    </div>
+
+
+    <div id="title">
+        <h2>Anamnese</h2>
+        <p>Führen Sie die zahnmedizinische Anamnese durch und beurteilen Sie den Entwicklungsstand des Patienten.</p>
+    </div>
+
+    <div class="content">
+        <div class="gallery_container">
+            <div class="main_image_container" id="imageContainer">
+                <div class="zoom_controls_gallery">
+                    <button class="zoom_btn" id="zoomOut" title="Verkleinern">−</button>
+                    <div class="zoom_level" id="zoomLevel">100%</div>
+                    <button class="zoom_btn" id="zoomIn" title="Vergrößern">+</button>
+                </div>
+                <img id="mainImage" class="main_image" src="" alt="Hauptbild">
+            </div>
+
+            <div class="thumbnails_container" id="thumbnailsContainer">
+                <div class="thumbnail_item active" data-image-template="opg" data-caption="Orthopantomogramm">
+                    <img class="thumbnail_image" src="" alt="Orthopantomogramm">
+                    <div class="thumbnail_caption">OPG</div>
+                </div>
+
+                <div class="thumbnail_item" data-image-template="frs" data-caption="FRS">
+                    <img class="thumbnail_image" src="" alt="FRS">
+                    <div class="thumbnail_caption">FRS</div>
+                </div>
+
+                <div class="thumbnail_item" data-image-template="front" data-caption="Oberkiefer">
+                    <img class="thumbnail_image" src="" alt="Oberkiefer">
+                    <div class="thumbnail_caption">Oberkiefer</div>
+                </div>
+
+                <div class="thumbnail_item" data-image-template="side" data-caption="Unterkiefer">
+                    <img class="thumbnail_image" src="" alt="Unterkiefer">
+                    <div class="thumbnail_caption">Unterkiefer</div>
+                </div>
+
+                <div class="thumbnail_item" data-image-template="ana1" data-caption="CVM-Stadien">
+                    <img class="thumbnail_image" src="images/ana1.png" alt="CVM-Stadien">
+                    <div class="thumbnail_caption">CVM-Stadien</div>
+                </div>
+
+                <div class="thumbnail_item" data-image-template="ana2" data-caption="Wachstumskurve">
+                    <img class="thumbnail_image" src="images/ana2.png" alt="Wachstumskurve">
+                    <div class="thumbnail_caption">Wachstumskurve</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="anzeige" class="inactive"></div>
+
+    <div class="editor">
+        <div class="editor_steps">
+            <div class="step_cont" id="step1">
+
+                <div class="field_group">
+                    <h3>Zahnärztliche Anamnese:</h3>
+                    <div class="checkbox_group">
+                        <div class="checkbox_item">
+                            <input type="radio" id="milchgebiss" name="gebisstyp" value="milchgebiss">
+                            <label for="milchgebiss">Milchgebiss</label>
+                        </div>
+                        <div class="checkbox_item">
+                            <input type="radio" id="frueher_wechsel" name="gebisstyp" value="frueher_wechsel">
+                            <label for="frueher_wechsel">Frühes Wechselgebiss</label>
+                        </div>
+                        <div class="checkbox_item">
+                            <input type="radio" id="spaeter_wechsel" name="gebisstyp" value="spaeter_wechsel">
+                            <label for="spaeter_wechsel">Spätes Wechselgebiss</label>
+                        </div>
+                        <div class="checkbox_item">
+                            <input type="radio" id="adultes_gebiss" name="gebisstyp" value="adultes_gebiss">
+                            <label for="adultes_gebiss">Adultes Gebiss</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field_group">
+                    <label class="top_label" for="durchbruch_anomalien"><strong>Durchbruchsanomalien:</strong></label>
+                    <div class="checkbox_group">
+                        <div class="checkbox_item">
+                            <input type="radio" id="durchbruch_anomalien_ja" name="durchbruch_anomalien" value="durchbruch_anomalien_ja">
+                            <label for="durchbruch_anomalien_ja">Ja</label>
+                        </div>
+                        <div class="checkbox_item">
+                            <input type="radio" id="durchbruch_anomalien_nein" name="durchbruch_anomalien" value="durchbruch_anomalien_nein">
+                            <label for="durchbruch_anomalien_nein">Nein</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field_group">
+                    <label class="top_label" for="zahn_anomalien"><strong>Zahnanomalien:</strong></label>
+                    <div class="checkbox_group">
+                        <div class="checkbox_item">
+                            <input type="radio" id="zahn_anomalien_ja" name="zahn_anomalien" value="zahn_anomalien_ja">
+                            <label for="zahn_anomalien_ja">Ja</label>
+                        </div>
+                        <div class="checkbox_item">
+                            <input type="radio" id="zahn_anomalien_nein" name="zahn_anomalien" value="zahn_anomalien_nein">
+                            <label for="zahn_anomalien_nein">Nein</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field_group">
+                    <h3>Beurteilung des Entwicklungsstandes</h3>
+
+                    <div class="subsection">
+                        <div class="subsection_title">Dental:</div>
+                        <div class="checkbox_group">
+                            <div class="checkbox_item">
+                                <input type="radio" id="dental_altersgerecht" name="dental_entwicklung" value="altersgerecht">
+                                <label for="dental_altersgerecht">Altersgerecht</label>
+                            </div>
+                            <div class="checkbox_item">
+                                <input type="radio" id="dentitio_praecox" name="dental_entwicklung" value="praecox">
+                                <label for="dentitio_praecox">Dentitio praecox</label>
+                            </div>
+                            <div class="checkbox_item">
+                                <input type="radio" id="dentitio_tarda" name="dental_entwicklung" value="tarda">
+                                <label for="dentitio_tarda">Dentitio tarda</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection_title">Skelettal:</div>
+                        <div class="checkbox_group">
+                            <div class="checkbox_item">
+                                <input type="radio" id="skelettal_altersgerecht" name="skelettal_entwicklung" value="altersgerecht">
+                                <label for="skelettal_altersgerecht">Altersgerecht</label>
+                            </div>
+                            <div class="checkbox_item">
+                                <input type="radio" id="skelettal_verzoegert" name="skelettal_entwicklung" value="verzoegert">
+                                <label for="skelettal_verzoegert">Verzögert</label>
+                            </div>
+                            <div class="checkbox_item">
+                                <input type="radio" id="skelettal_verfruht" name="skelettal_entwicklung" value="verfruht">
+                                <label for="skelettal_verfruht">Verfrüht</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div data-href="step0.html" id="value_btn">Lösungen anzeigen</div>
+        <div data-href="step0.html" id="next_btn" class="inactive">Zum nächsten Schritt</div>
+    </div>
+</div>
+
+
+<script src="js/btnsStep00.js"></script>
+<script src="js/getValuesStep00.js"></script>
+<script src="js/loadFall.js"></script>
+
+<script src="js/reviewMode.js"></script>
+
+
+<script>
+    // Fallnummer aus URL-Hash auslesen und Identifier entfernen
+    const hash = window.location.hash.substring(1);
+    const hashParts = hash.split("-");
+    const fall = hashParts[0]; // Nur die Fallnummer, ohne Identifier
+
+    console.log("Hash:", hash);
+    console.log("Fallnummer:", fall);
+
+    // Bildpfade erstellen
+    let src_opg = "images/opg" + fall + ".jpg";
+    let src_frs = "images/frs" + fall + ".png";
+    let src_front = "images/ok" + fall + ".png";
+    let src_side = "images/uk" + fall + ".png";
+    let src_ana1 = "images/ana1.png";
+    let src_ana2 = "images/ana2.png";
+
+    console.log("OPG:", src_opg);
+    console.log("FRS:", src_frs);
+    console.log("OK:", src_front);
+    console.log("UK:", src_side);
+    console.log("Ana1:", src_ana1);
+    console.log("Ana2:", src_ana2);
+
+    // Hauptbild initial setzen (erstes Bild = OPG)
+    $('#mainImage').attr("src", src_opg);
+
+    // Thumbnail-Bilder setzen
+    $('.thumbnail_item').each(function() {
+        const template = $(this).attr('data-image-template');
+        let imageSrc = '';
+
+        switch(template) {
+            case 'opg':
+                imageSrc = src_opg;
+                break;
+            case 'frs':
+                imageSrc = src_frs;
+                break;
+            case 'front':
+                imageSrc = src_front;
+                break;
+            case 'side':
+                imageSrc = src_side;
+                break;
+            case 'ana1':
+                imageSrc = src_ana1;
+                break;
+            case 'ana2':
+                imageSrc = src_ana2;
+                break;
+        }
+
+        // Setze das Thumbnail-Bild
+        $(this).find('.thumbnail_image').attr('src', imageSrc);
+
+        // Setze das data-image Attribut für die Galerie-Funktionalität
+        $(this).attr('data-image', imageSrc);
+    });
+
+    // Zoom und Drag Funktionalität
+    const mainImage = document.getElementById('mainImage');
+    const imageContainer = document.getElementById('imageContainer');
+    const zoomInBtn = document.getElementById('zoomIn');
+    const zoomOutBtn = document.getElementById('zoomOut');
+    const zoomLevelDisplay = document.getElementById('zoomLevel');
+
+    let scale = 1;
+    let panning = false;
+    let pointX = 0;
+    let pointY = 0;
+    let start = { x: 0, y: 0 };
+
+    // Zoom-Funktion
+    function setZoom(newScale) {
+        scale = Math.min(Math.max(0.5, newScale), 5);
+        mainImage.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
+        zoomLevelDisplay.textContent = Math.round(scale * 100) + '%';
+
+        if (scale > 1) {
+            mainImage.style.cursor = 'grab';
+        } else {
+            mainImage.style.cursor = 'default';
+            pointX = 0;
+            pointY = 0;
+            mainImage.style.transform = `translate(0px, 0px) scale(${scale})`;
+        }
+    }
+
+    // Zoom Buttons
+    zoomInBtn.addEventListener('click', () => {
+        setZoom(scale + 0.25);
+    });
+
+    zoomOutBtn.addEventListener('click', () => {
+        setZoom(scale - 0.25);
+    });
+
+    // Mausrad-Zoom
+    imageContainer.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const delta = e.deltaY > 0 ? -0.1 : 0.1;
+        setZoom(scale + delta);
+    });
+
+    // Drag-Funktionalität
+    mainImage.addEventListener('mousedown', (e) => {
+        if (scale <= 1) return;
+        e.preventDefault();
+        start = { x: e.clientX - pointX, y: e.clientY - pointY };
+        panning = true;
+        mainImage.classList.add('dragging');
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (!panning) return;
+        e.preventDefault();
+        pointX = e.clientX - start.x;
+        pointY = e.clientY - start.y;
+        mainImage.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
+    });
+
+    document.addEventListener('mouseup', () => {
+        panning = false;
+        mainImage.classList.remove('dragging');
+    });
+
+    // Bildgalerie-Funktionalität
+    const thumbnailItems = document.querySelectorAll('.thumbnail_item');
+
+    thumbnailItems.forEach(item => {
+        item.addEventListener('click', function() {
+            thumbnailItems.forEach(thumb => thumb.classList.remove('active'));
+            this.classList.add('active');
+
+            const imageUrl = this.getAttribute('data-image');
+            const caption = this.getAttribute('data-caption');
+            mainImage.src = imageUrl;
+            mainImage.alt = caption;
+
+            // Reset Zoom
+            scale = 1;
+            pointX = 0;
+            pointY = 0;
+            setZoom(1);
+        });
+    });
+
+
+</script>
+
+
+
+<script>
+    function resizeIframe(obj) {
+        obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+    }
+</script>
+
+</body>
+</html>

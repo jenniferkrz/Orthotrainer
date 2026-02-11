@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+    <title> Step Orthopantomogrammm - Ortho Campus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/logoNavigation.js"></script>
+</head>
+
+<style>
+    /* OPG Zoom Controls - iPad Optimierungen */
+
+    /* Stelle sicher, dass die Zoom-Controls immer sichtbar sind */
+    .zoom_controls {
+        position: absolute !important;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000 !important;
+        display: flex;
+        gap: 10px;
+        pointer-events: auto !important;
+    }
+
+    .zoom_controls button {
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
+        border: none;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        color: #333;
+        transition: all 0.2s;
+        pointer-events: auto !important;
+        touch-action: manipulation !important;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .zoom_controls button:active {
+        background: rgba(200, 200, 200, 0.95);
+        transform: scale(0.95);
+    }
+
+    .zoom_controls button.active {
+        background: rgba(24, 206, 255, 0.95);
+        color: white;
+    }
+
+    .zoom_controls button i {
+        pointer-events: none;
+    }
+
+    /* OPG Container */
+    #zoom_target1 {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        height: 600px;
+        background: #f5f5f5;
+        touch-action: none;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+
+    #opg_wrapper {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        pointer-events: auto;
+    }
+
+    #opg_img {
+        display: block;
+        max-width: none !important;
+        width: 100%;
+        height: auto;
+        user-select: none;
+        -webkit-user-drag: none;
+        touch-action: none;
+        pointer-events: none;
+    }
+
+    /* Verhindere Textauswahl beim Zoomen/Dragging */
+    .opg_zoom * {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    /* Mobile Optimierungen */
+    @media (max-width: 768px) {
+        .zoom_controls {
+            bottom: 10px;
+            right: 10px;
+            gap: 8px;
+        }
+
+        .zoom_controls button {
+            width: 48px !important;
+            height: 48px !important;
+            min-width: 48px !important;
+            min-height: 48px !important;
+            font-size: 20px;
+        }
+
+        #zoom_target1 {
+            height: 400px;
+        }
+    }
+
+    /* Verhindere Double-Tap-Zoom auf iOS */
+    button, a, input {
+        touch-action: manipulation;
+    }
+</style>
+
+<body>
+
+    <div id="wrapper">
+        <div id="top">
+            <a href="index.php" id="logo"><img class="logo_img" src="images/orthocampus_divers.svg"></a>
+            <div id="patientName"></div>
+            <div class="avmz_logo"><img src="images/avmz_logo.svg"></div>
+        </div>
+
+        <div id="title">
+            <h1>Orthopantomogrammm</h1>
+                <p>OPG Aufgabenstellung: Bewerten Sie (ganzheitlich) <strong>alle zahnärztlichen dentalen Befunde</strong> unter Beachtung der vorliegenden Legende.</p>
+        </div>
+
+        <div class="model">
+            <div class="zoom_target opg_zoom" id="zoom_target1">
+                <div id="opg_wrapper">
+            <img id="opg_img" src="">
+                    </div>
+            <div class="zoom_controls">
+                <button id="zoom_in"><i class="fa fa-search-plus"></i></button>
+                <button id="zoom_out"><i class="fa fa-search-minus"></i></button>
+                <button id="reset_zoom"><i class="fa fa-undo-alt"></i></button>
+                <button id="move_mode"><i class="fas fa-arrows-alt"></i></button>
+            </div>
+            </div>
+        </div>
+
+        <div class="editor">
+            <div class="editor_steps">
+                <div class="step_cont" id="step1">
+                    <div class="quadrant_cont">
+                        <div>
+                            <div class="s_title">Quadrant 1</div>
+                            <div class="quadrant">
+                                <div class="quadr_row">
+                                    <div class="expl">nicht durchgebrochen</div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="18" id="opzq11" name="opzq11"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="17" id="opzq12" name="opzq12"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="16" id="opzq13" name="opzq13"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="15" id="opzq14" name="opzq14"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="14" id="opzq15" name="opzq15"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="13" id="opzq16" name="opzq16"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="12" id="opzq17" name="opzq17"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="11" id="opzq18" name="opzq18"><br>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="quadr_row">
+                                    <div class="expl">im Durchbruch</div>
+
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="18" id="opzq19" name="opzq19"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="17" id="opzq110" name="opzq110"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="16" id="opzq1111" name="opzq1111"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="15" id="opzq1212" name="opzq1212"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="14" id="opzq113" name="opzq113"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="13" id="opzq114" name="opzq114"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="12" id="opzq115" name="opzq115"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="11" id="opzq116" name="opzq116"><br>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="quadr_row">
+                                    <div class="expl">durchgebrochen</div>
+
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="18" id="opzq117" name="opzq117"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="17" id="opzq118" name="opzq118"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="16" id="opzq119" name="opzq119"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="15" id="opzq120" name="opzq120"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="14" id="opzq121" name="opzq121"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="13" id="opzq122" name="opzq122"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="12" id="opzq123" name="opzq123"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="11" id="opzq124" name="opzq124"><br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div>
+                            <div class="s_title">Quadrant 2</div>
+                            <div class="quadrant">
+                                <div class="quadr_row">
+                                    <div class="expl">nicht durchgebrochen</div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="21" id="opzq21" name="opzq21"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="22" id="opzq22" name="opzq22"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="23" id="opzq23" name="opzq23"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="24" id="opzq24" name="opzq24"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="25" id="opzq25" name="opzq25"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="26" id="opzq26" name="opzq26"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="27" id="opzq27" name="opzq27"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="28" id="opzq28" name="opzq28"><br>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="quadr_row">
+                                    <div class="expl">im Durchbruch</div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="21" id="opzq29" name="opzq29"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="22" id="opzq210" name="opzq210"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="23" id="opzq211" name="opzq211"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="24" id="opzq212" name="opzq212"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="25" id="opzq213" name="opzq213"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="26" id="opzq214" name="opzq214"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="27" id="opzq215" name="opzq215"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="28" id="opzq216" name="opzq216"><br>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="quadr_row">
+                                    <div class="expl">durchgebrochen</div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="21" id="opzq217" name="opzq217"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="22" id="opzq218" name="opzq218"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="23" id="opzq219" name="opzq219"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="24" id="opzq220" name="opzq220"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="25" id="opzq221" name="opzq221"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="26" id="opzq222" name="opzq222"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="27" id="opzq223" name="opzq223"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="28" id="opzq224" name="opzq224"><br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="quadrant_cont">
+
+                        <div>
+                            <div class="s_title">Quadrant 4</div>
+                            <div class="quadrant">
+                                <div class="quadr_row">
+                                    <div class="expl">durchgebrochen</div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="48" id="opzq31" name="opzq31"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="47" id="opzq32" name="opzq32"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="46" id="opzq33" name="opzq33"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="45" id="opzq34" name="opzq34"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="44" id="opzq35" name="opzq35"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="43" id="opzq36" name="opzq36"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="42" id="opzq37" name="opzq37"><br>
+                                        </div>
+                                    </div>
+                                    <div class="loes opg_loes">
+                                        <div class="input_cont quad" id="step_description">
+                                            <input type="text" placeholder="41" id="opzq38" name="opzq38"><br>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="quadr_row">
+                                    <div class="expl">im Durchbruch</div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="48" id="opzq39" name="opzq39"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="47" id="opzq310" name="opzq310"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="46" id="opzq311" name="opzq311"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="45" id="opzq312" name="opzq312"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="44" id="opzq313" name="opzq313"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="43" id="opzq314" name="opzq314"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="42" id="opzq315" name="opzq315"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="41" id="opzq316" name="opzq316"><br>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="quadr_row">
+                                <div class="expl">nicht durchgebrochen</div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="48" id="opzq317" name="opzq317"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="47" id="opzq318" name="opzq318"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="46" id="opzq319" name="opzq319"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="45" id="opzq320" name="opzq320"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="44" id="opzq321" name="opzq321"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="43" id="opzq322" name="opzq322"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="42" id="opzq323" name="opzq323"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="41" id="opzq324" name="opzq324"><br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="s_title">Quadrant 3</div>
+                        <div class="quadrant">
+                            <div class="quadr_row">
+                                <div class="expl">durchgebrochen</div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="31" id="opzq41" name="opzq41"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="32" id="opzq42" name="opzq42"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="33" id="opzq43" name="opzq43"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="34" id="opzq44" name="opzq44"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="35" id="opzq45" name="opzq45"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="36" id="opzq46" name="opzq46"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="37" id="opzq47" name="opzq47"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="38" id="opzq48" name="opzq48"><br>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="quadr_row">
+                                <div class="expl">im Durchbruch</div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="31" id="opzq49" name="opzq49"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="32" id="opzq410" name="opzq410"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="33" id="opzq411" name="opzq411"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="34" id="opzq412" name="opzq412"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="35" id="opzq413" name="opzq413"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="36" id="opzq414" name="opzq414"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="37" id="opzq415" name="opzq415"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="38" id="opzq416" name="opzq416"><br>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="quadr_row">
+                                <div class="expl">nicht durchgebrochen</div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="31" id="opzq417" name="opzq417"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="32" id="opzq418" name="opzq418"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="33" id="opzq419" name="opzq419"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="34" id="opzq420" name="opzq420"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="35" id="opzq421" name="opzq421"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="36" id="opzq422" name="opzq422"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="37" id="opzq423" name="opzq423"><br>
+                                    </div>
+                                </div>
+                                <div class="loes opg_loes">
+                                    <div class="input_cont quad" id="step_description">
+                                        <input type="text" placeholder="38" id="opzq424" name="opzq424"><br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="legende">
+                    <div class="leg">V = Verlagerung</div>
+
+                    <div class="leg">NA = Nichtanlage</div>
+
+                    <div class="leg">Ü = überzähliger Zahn</div>
+
+                    <div class="leg">WF = Wurzelfüllung</div>
+
+                    <div class="leg">WR = Wurzelresorption</div>
+
+                    <div class="leg">PA = parodontaler Abbau</div>
+
+                    <div class="leg">X = extrahierter Zahn</div>
+
+                    <div class="leg">C = Karies</div>
+
+                    <div class="leg">F = Füllung</div>
+
+                    <div class="leg">O = Blastemstadium </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div data-href="step.html" id="value_btn">Lösungen anzeigen</div>
+    <div data-href="step.html" id="next_btn" class="inactive">Zum nächsten Schritt</div>
+    </div>
+    </div>
+
+    <script src="js/btns.js"></script>
+    <script src="js/setOPG.js"></script>
+
+    <script src="js/getValues_opg.js"></script>
+
+    <script src="js/opg_zoom.js"></script>
+
+    <script src="js/loadFall.js"></script>
+    <script src="js/reviewMode.js"></script>
+
+
+
+
+</body>
+
+</html>

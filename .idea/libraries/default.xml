@@ -1,0 +1,31 @@
+<component name="libraryTable">
+  <library name="default">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/results/mkg/build/default/bower_components.zip!/" />
+      <root url="jar://$PROJECT_DIR$/results/mkg/build/default/entzuendungen_abszesse.zip!/" />
+      <root url="jar://$PROJECT_DIR$/results/mkg/build/default/mikrochirurgie.zip!/" />
+      <root url="jar://$PROJECT_DIR$/results/mkg/build/default/avmz-player-app.zip!/" />
+      <root url="jar://$PROJECT_DIR$/results/mkg/build/default/gesichtshauttumoren.zip!/" />
+      <root url="jar://$PROJECT_DIR$/results/mkg/build/default/angle.zip!/" />
+      <root url="jar://$PROJECT_DIR$/results/mkg/build/default/nasennebenhoehlen.zip!/" />
+      <root url="jar://$PROJECT_DIR$/results/mkg/build/default/css.zip!/" />
+      <root url="jar://$PROJECT_DIR$/results/mkg/build/default/src.zip!/" />
+      <root url="jar://$PROJECT_DIR$/results/mkg/build/default/trauma.zip!/" />
+      <root url="jar://$PROJECT_DIR$/results/mkg/build/default/mronj_und_orn.zip!/" />
+      <root url="jar://$PROJECT_DIR$/results/mkg/build/default/lokale_lappenplastiken.zip!/" />
+      <root url="jar://$PROJECT_DIR$/results/mkg/build/default/praeprothetische_chirurgie_augmentation.zip!/" />
+      <root url="jar://$PROJECT_DIR$/results/mkg/build/default/odontogene_tumoren.zip!/" />
+      <root url="jar://$PROJECT_DIR$/results/mkg/build/default/spezifische_infektionen.zip!/" />
+      <root url="jar://$PROJECT_DIR$/results/mkg/build/default/speicheldruesen.zip!/" />
+      <root url="jar://$PROJECT_DIR$/results/mkg/build/default/kraniosynostosen.zip!/" />
+      <root url="jar://$PROJECT_DIR$/results/mkg/build/default/lkg.zip!/" />
+      <root url="jar://$PROJECT_DIR$/results/mkg/build/default/zysten.zip!/" />
+      <root url="jar://$PROJECT_DIR$/results/mkg/build/default/tumoren.zip!/" />
+      <root url="jar://$PROJECT_DIR$/results/mkg/build/default/implantologie_und_epithetik.zip!/" />
+      <root url="jar://$PROJECT_DIR$/results/mkg/build/default/dysgnathie.zip!/" />
+      <root url="jar://$PROJECT_DIR$/results/mkg/build/default/komplikationen.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

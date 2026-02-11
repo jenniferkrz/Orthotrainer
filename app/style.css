@@ -1,0 +1,878 @@
+body{
+    margin: 0;
+    font-family: 'Public Sans', sans-serif;
+    font-size: 1.2em;
+    overflow-x: hidden;
+}
+
+#top{
+    background-color: #FAFAFA;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    position: relative;
+    justify-content: space-between;
+}
+
+#top_title{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.6em;
+}
+
+#logo {
+    margin-left: 10px;
+    width: 11%;
+    flex-shrink: 0;
+}
+
+.logo_img {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    display: block;
+}
+.avmz_logo{
+    width: 20%;
+    padding-right: 10px;
+}
+.avmz_logo img{
+    width: 100%;
+}
+#patientName{
+    text-align: center;
+    font-size: 0.9em;
+    color: color(srgb 0.945 0.4232 0.2504);
+    font-weight: bold;
+}
+
+#list{
+    padding: 20px;
+    width: 80%;
+}
+
+#list_input{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.list_top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    justify-content: center;
+}
+
+#new_btn{
+    padding: 10px;
+    background-color: #00549F;
+    color: white;
+    cursor: pointer;
+}
+#intro_text{
+    width: 80%;
+}
+
+.case_head{
+    display: flex;
+    font-weight: bold;
+    padding-bottom: 10px;
+    border-bottom: solid 1px;
+}
+
+.blue_case{
+    width: 20%;
+    padding-top: 70px;
+    padding-bottom: 70px;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: #00549F;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    pointer-events: none;
+    opacity: 0.3;
+    display: none;
+}
+.blue_case.active{
+    pointer-events: all;
+    opacity: 1;
+    display: block;
+}
+
+
+.case_btns i{
+    padding-left: 5px;
+    padding-right: 5px;
+    cursor: pointer;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+#title{
+    width: 80%;
+}
+
+#step_nav{
+    display: flex;
+    width: 80%;
+    justify-content: space-between;
+}
+.step_container{
+    padding: 20px;
+    background-color: #00549F;
+    color: white;
+    margin: 3px;
+    cursor: pointer;
+    width: 10%;
+    text-align: center;
+}
+/* Editor */
+
+#wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.model{
+    padding-top: 10px;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+}
+.model img{
+    width: 100%;
+}
+.model.drei .image_line_container{
+    width: 50%;
+    padding:5px
+}
+.model.drei{
+    display: flex;
+}
+.lines_container, .lines_container3 {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 800px; /* oder nach Bedarf */
+    background-color: #f0f0f0;
+    user-select: none;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE 10+ */
+}
+
+#container {
+    width: 100%;
+    height: 800px;
+    overflow: hidden;
+    position: relative;
+}
+
+.lines_container3 {
+    position: relative; /* Das ist wichtig für absolute Positionierung des Dialogs */
+}
+
+#delete-dialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border: 2px solid orange;
+    padding: 20px;
+    display: none;
+    z-index: 1000;
+    border-radius: 8px;
+    font-family: sans-serif;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#delete-message {
+    text-align: center;
+}
+.frs_line_container .lines_container {
+    height: 100%;
+}
+
+#zoomTarget.frs_target{
+    width: 100%;
+    height: auto;
+}
+
+#zoomTarget {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: top left;
+    will-change: transform;
+    height: 800px;
+}
+
+.editor_zwei_spalten {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+}
+
+.editor_zwei_spalten .model {
+    width: 70%;
+}
+
+.editor_zwei_spalten .editor {
+    width: 30%;
+    display: flex;
+    justify-content: end;
+}
+
+.editor_zwei_spalten .editor .s_title{
+    padding-top: 10px;
+}
+
+.editor_zwei_spalten .editor .line{
+    margin-bottom: 0;
+}
+
+.abstand_x{
+    opacity: 0;
+}
+
+.zoom_controls button{
+    cursor: pointer;
+}
+
+.zoom_controls button.active{
+    background-color: orange;
+}
+
+.zoom_controls{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.zoom_controls button{
+    background-color: #0b97c4;
+    color: white;
+    font-size: 20px;
+    border: none!important;
+    margin-top: 2px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.zoom_target {
+    position: relative;
+    transform-origin: top left;
+    cursor: grab;
+    display: inline-block; /* <- wichtig */
+}
+
+.zoom_target img,
+.zoom_target canvas {
+    display: block;
+    width: 100%;
+    height: auto; /* <--- stellt sicher: Bild wird nicht verzerrt */
+    pointer-events: none;
+}
+
+#zoomTarget .frs_image{
+    height: 100%;
+    width: auto;
+}
+
+.zoom_target canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: auto; /* optional: oder exakt wie das Bild */
+    pointer-events: none;
+}
+
+.editor_top{
+    background-color: #fafafa;
+    padding-top: 15px;
+    margin-bottom: 20px;
+}
+
+.editor{
+    width: 80%;
+}
+
+#frs_canvas{
+    width: 100%;
+}
+
+.input_cont{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1em;
+    align-items: center;
+}
+
+.input_cont_sum{
+    display: flex;
+    padding-top: 1em;
+
+}
+
+.input_cont_sum label{
+    width: 20ch;
+}
+
+label{
+    width: 20%;
+}
+
+input{
+    width: 100%;
+    height: 2.4em;
+}
+
+.s_title{
+    padding-top: 1.5em;
+    padding-bottom: 0.75em;
+    font-weight: bold;
+}
+
+#next_btn, #value_btn, #next_btn_end{
+    background-color: #00549F;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    margin-top: 1.5em;
+    height: 2.4em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.line{
+    width: 100%;
+    border-bottom: solid 1px #F4F4F4;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+#editor_rows{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+}
+
+#editor_links, #editor_rechts{
+    width: 45%;
+}
+
+.opg_zoom{
+    overflow: hidden;
+    width: 100%;
+    height: 600px;
+}
+
+.loesung_cont{
+    display: flex;
+    padding-bottom: 0.75em;
+}
+.loesung{
+    color: green;
+    padding-bottom: 10px;
+    padding-top: 3px;
+}
+#opg_img {
+    user-select: none;
+    -webkit-user-select: none; /* für Safari */
+    -moz-user-select: none;    /* für Firefox */
+    -ms-user-select: none;     /* für IE */
+    pointer-events: none; /* Verhindert Klickprobleme beim Draggen */
+    width: 100%;
+}
+
+
+#next_btn.inactive, #value_btn.inactive{
+    display: none;
+    pointer-events: none;
+}
+
+.quadrant{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.quad_container{
+    width: 12%;
+}
+.quad input{
+    text-align: center;
+}
+.quad_container .loesung_cont{
+    text-align: center;
+    justify-content: start;
+    width: 100%;
+}
+iframe{
+    height: 650px;
+    width: 100%;
+}
+
+iframe{
+    height: 650px;
+    width: 100%;
+}
+.editor.frs{
+    height: 80vh;
+}
+
+.input_cont.grey{
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+
+.quadrant{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 90%;
+}
+.input_cont.quad{
+    width: 12%;
+    padding-right: 2px;
+    padding-bottom: 0;
+}
+.quad input{
+    text-align: center;
+    width: 95%;
+}
+
+iframe{
+    height: 650px;
+    width: 100%;
+}
+.editor.frs{
+    height: 80vh;
+}
+.quadrant_cont{
+    display: flex;
+    width: 100%;
+
+}
+.input_cont.grey{
+    opacity: 0.3;
+    pointer-events: none;
+}
+.quadr_row{
+    display: flex;
+    align-items: center;
+    padding-bottom: 15px;
+}
+.expl{
+    font-size: 0.8em;
+    width: 25%;
+    margin-right: 10px;
+}
+.profil{
+    width: 50%;
+    padding-right: 20px;
+}
+.profil img{
+    width: 100%;
+}
+.editor_prof{
+    width: 80%;
+}
+.profil_edit_cont{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.profil_edit_cont .editor_steps{
+    width: 50%;
+}
+
+
+
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+  }
+  
+  .frs #links {
+    width: 674px;
+  }
+  
+  .frs #image_container {
+    height: 800px;
+    position: relative;
+  }
+  .frs img {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .legende{
+    display: flex;
+    flex-wrap: wrap;
+      padding-top: 20px;
+  }
+  .leg{
+    width: 20%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 0.8em;
+  }
+
+
+.opg_loes .loesung{
+    height: 20px;
+}
+.loesung_center{
+    justify-content: center;
+    width: 56%;
+}
+  .loes{
+    width: 10%;
+
+  }
+  .loes .input_cont{
+    width: 100%;
+  }
+    textarea{
+      width: 80%;
+  }
+  .loes .quad input{
+    width: 100%;
+  }
+  .loes .loesung_cont{
+    justify-content: start;
+    font-size: 0.7em;
+  }
+
+  .quad ::placeholder {
+    color: rgb(0, 0, 0);
+    opacity: 0.1;
+  }
+
+
+.line_txt{
+    display: flex;
+}
+.ltext{
+    width: 60px;
+}
+.line_txt i{
+    padding-left: 10px;
+    cursor: pointer;
+}
+
+.step_cont.flex-cont{
+    display: flex;
+    gap: 4em;
+}
+.left_input .loesung_cont, .left_input .loesung{
+    padding-bottom: 0!important;
+}
+.right_input{
+}
+
+.sum_table{
+    display: flex;
+    width: 100%;
+}
+.table_cont{
+    display: flex;
+    align-items: baseline;
+}
+
+.input_cont.grey{
+    opacity: 0.3;
+    pointer-events: none;
+}
+input:disabled{
+    background-color: #dad9d9;
+}
+
+.table_row{
+    width: 33%;
+    height: 1.5em;
+    margin-bottom: 3px;
+}
+.table_row_left{
+    height: 2.4em;
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+
+}
+.table_row input{
+    width: 90%;
+}
+.table_left{
+    width: 30%;
+    height: 100%;
+}
+.table_right{
+    width: 70%;
+}
+.table_cont_left{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+input::placeholder{
+    font-size: 10px;
+}
+
+#editsum3, #editsum2, #editsum1{
+    pointer-events: none;
+}
+.table_cont_sol_cont{
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+}
+.table_cont_sol_cont .loesung_cont{
+    justify-content: start;
+}
+.table_cont_sol_cont .table_row.input_cont{
+    width: 100%;
+}
+#start{
+    width: 60%;
+}
+.start_top{
+    text-align: center;
+    padding-bottom: 20px;
+}
+.start_input{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.start_input label{
+    font-weight: bold;
+    text-align: center;
+}
+#start_btn{
+    padding: 10px;
+    background-color: #00549F;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+.radio_cont{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+.radio_cont input{
+    width: auto;
+}
+.radio_cont label{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input_cont.small{
+    justify-content: center;
+}
+.input_cont.small textarea{
+    width: 50%;
+}
+.input_cont.small label{
+    width: 80px;
+}
+
+.auswahl{
+    display: flex;
+    justify-content: space-between;
+
+    background-color: #00549F;
+}
+.auswahl div{
+    cursor: pointer;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: white;
+    width: 33%;
+    text-align: center;
+}
+.auswahl div.active{
+    background-color: orange;
+    color: white;
+
+
+}
+.input_cont.step0{
+    justify-content: left;
+}
+.step0_input{
+    width: 80%;
+}
+
+.input_winkel{
+    width: 10%;
+}
+.input_winkel2{
+    width: 70%;
+    margin-left: 5px;
+}
+#delete-btn{
+    display: none;
+
+}
+#delete-btn.active{
+    display: block;
+    position: absolute;
+    z-index: 1000;
+    right: 0;
+    bottom: 3px;
+    background-color: #00549F;
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+    background-color: red;
+    font-size: 12px;
+}
+
+
+.flex_frs{
+    display: flex;
+    width: 100%;
+    padding-bottom: 25px;
+}
+.flex_frs .model{
+    width: 75%;
+}
+.flex_frs .editor{
+    width: 40%;
+}
+.flex_frs .model .frs_line_container{
+    width: 90%;
+}
+.flex_frs h3{
+    padding-top: 0!important;
+    margin-block-start: 5px!important;
+
+}
+
+.frs_point .checkmark {
+    margin-left: 5px;
+    color: green;
+    font-size: 0.9em;
+    display: none;
+}
+.frs_point.set .checkmark {
+    display: inline;
+}
+
+.frs_label{
+    width: 30%;
+}
+.frs_input{
+    width: 50%;
+    height: 25px;
+}
+.auswahl{
+    display: flex;
+    justify-content: space-between;
+
+    background-color: #00549F;
+}
+.auswahl div{
+    cursor: pointer;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: white;
+    width: 33%;
+    text-align: center;
+}
+
+.input_winkel{
+    width: 10%;
+}
+
+#delete-btn{
+    display: none;
+
+}
+#delete-btn.active{
+    display: block;
+    position: absolute;
+    z-index: 1000;
+    right: 0;
+    bottom: 3px;
+    background-color: #00549F;
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+    background-color: red;
+    font-size: 12px;
+}
+.frs_point{
+    cursor: pointer;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 12%;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.frs_point.active{
+    background-color: #00549F;
+    color: white;
+}
+
+#opg_wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+}
+
+#opg_img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-width: none;
+    display: block;
+    user-select: none;
+    touch-action: none;
+    width: auto;
+    height: auto;
+}
+
+
+
