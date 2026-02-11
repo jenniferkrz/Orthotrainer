@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Step 1 - Ortho Campus</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+
+<div id="wrapper">
+    <div id="top">
+        <a href="index.html" id="logo"><img class="logo_img" src="images/orthocampus_divers.svg"></a>
+        <div class="avmz_logo"><img src="images/avmz_logo.svg"></div>
+    </div>
+
+    <div id="title">
+        <h2>Extraorale Profilanalyse</h1>
+            <p>Führen Sie eine vollständige extraorale Analyse des Gesichts enface unter Berücksichtigung der kollmanschen Proportionen und des Profils mit Angabe des Gesichtskonvexität- und Nasiolabialwinkels.</p>
+    </div>
+
+    <div class="model drei">
+        <div class="image_line_container">
+            <div class="auswahl">
+                <div id="point1" class="active">Punkt</div>
+            </div>
+
+            <div id="lines_enfance" class="lines_container">
+                <div class="zoom_target" id="zoom_target1">
+                    <img id="linien_img1" src="images/front.png">
+                    <canvas id="lines1"></canvas>
+                </div>
+                <div class="zoom_controls">
+                    <button id="zoom_in"><i class="fa fa-search-plus"></i></button>
+                    <button id="zoom_out"><i class="fa fa-search-minus"></i></button>
+                    <button id="reset_zoom"><i class="fa fa-undo-alt"></i></button>
+                    <button id="move_mode"><i class="fas fa-arrows-alt"></i></button>
+                </div>
+            </div>
+            <div id="liste1">
+            </div>
+        </div>
+        <div class="image_line_container">
+
+            <div class="auswahl">
+                <div class="auswahl_tab active" data-id="point" >Punkt</div>
+                <div class="auswahl_tab" data-id="line">Linie</div>
+                <div class="auswahl_tab" data-id="winkel">Winkel</div>
+
+            </div>
+
+            <div id="lines_enfance" class="lines_container3">
+                <div class="zoom_target" id="zoom_target3">
+                    <img id="linien_img3" src="images/side.png">
+                    <canvas id="lines3"></canvas>
+                </div>
+                <div class="zoom_controls">
+                    <button id="zoom_in3"><i class="fa fa-search-plus"></i></button>
+                    <button id="zoom_out3"><i class="fa fa-search-minus"></i></button>
+                    <button id="reset_zoom3"><i class="fa fa-undo-alt"></i></button>
+                    <button id="move_mode3"><i class="fas fa-arrows-alt"></i></button>
+
+                </div>
+                <div id="delete-dialog">
+                    <p id="delete-message" style="margin-bottom: 15px;"></p>
+                    <div>
+                    <button id="confirm-delete" style="margin-right: 10px;">Ja</button>
+                    <button id="cancel-delete">Nein</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="anzeige" class="inactive">
+        <!--        <div id="saveLines">Speichern</div>-->
+    </div>
+
+    <div class="editor">
+        <div class="editor_steps">
+            <div class="step_cont" id="step1">
+
+                <div class="input_cont step0" id="step_description">
+                    <label for="gesichtsprofil">Gesichtsprofil:</label><br>
+                    <input class="input_winkel" id="gesichtsprofil_winkel" type="text" placeholder="Winkel in Grad"></input><br>
+                    <input class="input_winkel2"  type="text" id="gesichtsprofil_expl" name="gesichtsprofil_expl"></input><br>
+                </div>
+                <div class="input_cont step0" id="step_description">
+                    <label for="nasolabialwinkel">Nasolabialwinkel:</label><br>
+                    <input class="input_winkel" id="nasolabialwinkel_winkel" type="text" placeholder="Winkel in Grad"></input><br>
+                    <input class="input_winkel2" type="text" id="nasolabialwinkel_expl" name="nasolabialwinkel_expl"></input><br>
+                </div>
+
+
+                <div class="input_cont step0" id="step_description">
+                    <label for="ges_en">Gesicht enface:</label><br>
+                    <input class="step0_input" type="text" id="ges_en" name="ges_en"></input><br>
+                </div>
+                <div class="input_cont step0" id="step_description">
+                    <label for="lip_pro">Lippenprofil:</label><br>
+                    <input class="step0_input" type="text" id="lip_pro" name="lip_pro"></input><br>
+                </div>
+            </div>
+        </div>
+
+        <div data-href="step_orthopantogramm.html" id="value_btn">Lösungen anzeigen</div>
+        <div data-href="step_orthopantogramm.html" id="next_btn" class="inactive">Zum nächsten Schritt</div>
+
+    </div>
+</div>
+
+<script src="js/setImagesStep0.js"></script>
+
+<script src="js/btns.js"></script>
+<script src="js/getValuesStep0.js"></script>
+
+<script src="js/step0.js"></script>
+<script src="js/step0_3.js"></script>
+
+<script>
+    function resizeIframe(obj) {
+        obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+    }
+</script>
+
+</body>
+</html>

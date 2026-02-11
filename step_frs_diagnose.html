@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FRS - Ortho Campus</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+
+<div id="wrapper">
+
+    <div id="top">
+        <a href="index.html" id="logo"><img class="logo_img" src="images/orthocampus_divers.svg"></a>
+    </div>
+
+    <div id="title">
+        <h2>FRS</h1>
+            <p>Führen Sie die kephalometrische Analyse des Fernröntgenseitenbildes durch.</p>
+    </div>
+
+
+    <div class="flex_frs">
+        <div class="model drei">
+            <div class="frs_line_container">
+                <div class="auswahl">
+                    <div class="auswahl_tab" data-id="point" >Punkt</div>
+                    <div class="auswahl_tab" data-id="line">Linie</div>
+                    <div class="auswahl_tab active" data-id="winkel">Winkel</div>
+                </div>
+                <div class="lines_container" id="container">
+                    <div class="frs_target" id="zoomTarget">
+                        <img id="linien_img1" src="images/frs7.png" style="width:100%; height:auto;">
+                        <canvas id="frs_canvas"></canvas>
+                    </div>
+                    <div class="zoom_controls">
+                        <button id="zoom_in3"><i class="fa fa-search-plus"></i></button>
+                        <button id="zoom_out3"><i class="fa fa-search-minus"></i></button>
+                        <button id="reset_zoom3"><i class="fa fa-undo-alt"></i></button>
+                        <button id="move_mode3"><i class="fas fa-arrows-alt"></i></button>
+                        <button id="einbl" class="clicked"><i class="fa fa-eye-slash"></i></button>
+                    </div>
+                </div>
+           <!--   <div class="auswahl">
+&lt;!&ndash;
+                    <div class="nav_tab" data-id="aufh" >Auswahl aufheben</div>
+&ndash;&gt;
+                    <div class="nav_tab clicked" data-id="einbl">Alles ausblenden</div>
+&lt;!&ndash;
+                    <div class="nav_tab" data-id="delete_all">Alles löschen</div>
+&ndash;&gt;
+                </div>-->
+            </div>
+        </div>
+
+        <div class="editor">
+            <div class="editor_steps">
+                <div class="step_cont" id="step1">
+                    <h3>Winkel:</h3>
+
+                    <div class="input_cont" id="step_description">
+                        <label class="frs_label"  for="winkel_sna">SNA (Grad):</label><br>
+                        <input class="frs_input" id="winkel_sna" type="text" placeholder="Winkel in Grad"></input><br>
+                    </div>
+                    <div class="input_cont" id="step_description">
+                        <label class="frs_label"  for="winkel_snb">SNB (Grad):</label><br>
+                        <input class="frs_input" id="winkel_snb" type="text" placeholder="Winkel in Grad"></input><br>
+                    </div>
+                    <div class="input_cont" id="step_description">
+                        <label class="frs_label"  for="winkel_anb">ANB (Grad):</label><br>
+                        <input class="frs_input" id="winkel_anb" type="text" placeholder="Winkel in Grad"></input><br>
+                    </div>
+                    <div class="input_cont" id="step_description">
+                        <label class="frs_label"  for="winkel_nlnsl">NL-NSL (Grad):</label><br>
+                        <input class="frs_input" id="winkel_nlnsl" type="text" placeholder="Winkel in Grad"></input><br>
+                    </div>
+                    <div class="input_cont" id="step_description">
+                        <label class="frs_label"  for="winkel_mlnsl">ML-NSL (Grad):</label><br>
+                        <input class="frs_input" id="winkel_mlnsl" type="text" placeholder="Winkel in Grad"></input><br>
+                    </div>
+                    <div class="input_cont" id="step_description">
+                        <label class="frs_label"  for="winkel_mlnl">ML-NL (Grad):</label><br>
+                        <input class="frs_input" id="winkel_mlnl" type="text" placeholder="Winkel in Grad"></input><br>
+                    </div>
+                    <div class="input_cont" id="step_description">
+                        <label class="frs_label"  for="winkel_kieferw">Kieferwinkel (Grad):</label><br>
+                        <input class="frs_input" id="winkel_kieferw" type="text" placeholder="Winkel in Grad"></input><br>
+                    </div>
+                    <div class="input_cont" id="step_description">
+                        <label class="frs_label"  for="winkel_ioknl">IOK-NL (Grad):</label><br>
+                        <input class="frs_input" id="winkel_ioknl" type="text" placeholder="Winkel in Grad"></input><br>
+                    </div>
+                    <div class="input_cont" id="step_description">
+                        <label class="frs_label"  for="winkel_iukml">IUK-ML (Grad):</label><br>
+                        <input class="frs_input" id="winkel_iukml" type="text" placeholder="Winkel in Grad"></input><br>
+                    </div>
+                    <div class="input_cont" id="step_description">
+                        <label class="frs_label"  for="winkel_iukml">IOK-IUK (Grad):</label><br>
+                        <input class="frs_input" id="winkel_iukml" type="text" placeholder="Winkel in Grad"></input><br>
+                    </div>
+                    <div class="input_cont" id="step_description">
+                        <label class="frs_label"  for="winkel_nsnpg">N'-Sn-Pg' (Grad):</label><br>
+                        <input class="frs_input" id="winkel_nsnpg" type="text" placeholder="Winkel in Grad"></input><br>
+                    </div>
+                    <div class="input_cont" id="step_description">
+                        <label class="frs_label"  for="winkel_nasolabialw">Nasolabialwinkel (Grad):</label><br>
+                        <input class="frs_input" id="winkel_nasolabialw" type="text" placeholder="Winkel in Grad"></input><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-href="step_frs_diagnose.html" id="value_btn">Lösungen anzeigen</div>
+    <div data-href="step_frs_diagnose.html" id="next_btn" class="inactive">Zum nächsten Schritt</div>
+</div>
+
+<script src="js/setImagesFRS0.js"></script>
+<script src="js/btns_frs.js"></script>
+<script src="js/getValues.js"></script>
+<script src="js/frs.js"></script>
+<script src="js/frs_zoom2.js"></script>
+
+<script>
+    function resizeIframe(obj) {
+        obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+    }
+</script>
+
+
+</body>
+</html>
