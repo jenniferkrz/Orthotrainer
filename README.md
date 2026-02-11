@@ -15,7 +15,7 @@ Webbasierte Lernplattform für die kieferorthopädische Ausbildung. Studierende 
 Den Ordner `app/` in das gewünschte Verzeichnis auf dem Webserver kopieren, z. B.:
 
 ```
-/var/www/html/app/ORCA_ortho_campus/
+/var/www/html/app/orthotrainer/
 ```
 
 ### 2. Datenbank einrichten
