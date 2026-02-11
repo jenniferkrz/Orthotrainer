@@ -4,7 +4,7 @@ Webbasierte Lernplattform für die kieferorthopädische Ausbildung. Studierende 
 
 ## Voraussetzungen
 
-- Apache Webserver mit `mod_rewrite`
+- Apache Webserver
 - PHP 8.x
 - MySQL / MariaDB
 
