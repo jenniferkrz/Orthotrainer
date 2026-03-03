@@ -1,25 +1,5 @@
 <?php
-// Hole identifier aus URL
 $identifier = isset($_GET['identifier']) ? $_GET['identifier'] : '';
-
-require_once __DIR__ . '/php/config.php';
-
-// Prüfe ob Nutzer bereits beide Seiten besucht hat
-if (!empty($identifier)) {
-    $conn = new mysqli($servername, $username, $password, $database);
-
-    if (!$conn->connect_error) {
-        $stmt = $conn->prepare("INSERT INTO user_progress (identifier, welcome_completed, instruction_completed) VALUES (?, 0, 0) ON DUPLICATE KEY UPDATE identifier = identifier");
-        $stmt->bind_param("s", $identifier);
-        $stmt->execute();
-        $stmt->close();
-        $conn->close();
-    }
-}else{
-    // Kein identifier = zurück zu welcome.php
-    header("Location: start.html");
-    exit;
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +13,6 @@ if (!empty($identifier)) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/logoNavigation.js"></script>
 
-
     <!-- Video.js CSS -->
     <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet">
 
@@ -43,12 +22,24 @@ if (!empty($identifier)) {
     <!-- HLS Plugin für Chrome/Firefox -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.15.0/videojs-contrib-hls.min.js"></script>
 
-
     <style>
-        #flipped{
+        .embed-responsive {
+            position: relative;
             width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
         }
-        h2{
+
+        .embed-responsive .video-js {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        h2 {
             text-align: center;
         }
 
@@ -68,11 +59,22 @@ if (!empty($identifier)) {
             font-family: 'Public Sans', sans-serif;
             font-size: 14px;
             color: #999;
+            text-decoration: none;
         }
 
         .breadcrumb-item.active {
             color: #333;
             font-weight: 600;
+        }
+
+        .breadcrumb-item.completed {
+            color: #666;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .breadcrumb-item.completed:hover {
+            color: #333;
         }
 
         .breadcrumb-separator {
@@ -92,11 +94,54 @@ if (!empty($identifier)) {
             font-weight: 600;
             margin-right: 8px;
             font-size: 13px;
+            transition: background-color 0.2s ease;
         }
 
         .breadcrumb-item.active .breadcrumb-number {
             background-color: #4A90E2;
             color: white;
+        }
+
+        .breadcrumb-item.completed .breadcrumb-number {
+            background-color: #A8D5A8;
+            color: white;
+        }
+
+        .breadcrumb-item.completed:hover .breadcrumb-number {
+            background-color: #8FBC8F;
+        }
+
+        /* Download Button Styling */
+        #download_btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #5CB85C;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-family: 'Public Sans', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            margin: 20px auto;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #download_btn:hover {
+            background-color: #4CAF50;
+        }
+
+        #download_btn i {
+            margin-right: 8px;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
         }
 
         /* Footer Styling */
@@ -119,25 +164,8 @@ if (!empty($identifier)) {
             margin: 0;
         }
 
-        /* Wrapper Padding für Footer */
         #wrapper {
             padding-bottom: 60px;
-        }
-
-        .embed-responsive {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-        }
-
-        .embed-responsive .video-js {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100% !important;
-            height: 100% !important;
         }
     </style>
 </head>
@@ -146,21 +174,21 @@ if (!empty($identifier)) {
 <div id="wrapper">
 
     <div id="top">
-        <a href="index.php" id="logo"><img class="logo_img" src="images/orthocampus_divers2.svg"></a>
+        <a href="index.php?identifier=<?php echo urlencode($identifier); ?>" id="logo"><img class="logo_img" src="images/orthocampus_divers2.svg"></a>
         <div class="avmz_logo"><img src="images/avmz_logo.svg"></div>
     </div>
 
     <!-- Breadcrumbs -->
     <div class="breadcrumbs">
-        <div class="breadcrumb-item active">
+        <a href="welcome.php?identifier=<?php echo urlencode($identifier); ?>" class="breadcrumb-item completed">
             <span class="breadcrumb-number">1</span>
             <span>Willkommen</span>
-        </div>
+        </a>
         <span class="breadcrumb-separator">›</span>
-        <a href="skript.php?identifier=<?php echo urlencode($identifier); ?>" class="breadcrumb-item">
+        <div class="breadcrumb-item active">
             <span class="breadcrumb-number">2</span>
             <span>Anleitung</span>
-        </a>
+        </div>
         <span class="breadcrumb-separator">›</span>
         <a href="index.php?identifier=<?php echo urlencode($identifier); ?>" class="breadcrumb-item">
             <span class="breadcrumb-number">3</span>
@@ -169,17 +197,26 @@ if (!empty($identifier)) {
     </div>
 
     <div id="list">
-        <h2>Herzlich Willkommen beim Orthotrainer!</h2>
+        <h2>Anleitungsvideo & -skript</h2>
+        <p>Bitte sehen Sie sich das Anleitungsvideo an! Es führt Sie Schritt für Schritt durch die Anwendung und erklärt die wichtigen Funktionen. <br>Zusätzlich können Sie das Anleitungsskript herunterladen und parallel zur Fallanalyse öffnen.</p>
+
         <div class="embed-responsive embed-responsive-16by9">
             <video id="flipped" class="embed-responsive-item video-js vjs-default-skin vjs-big-play-centered"
                    controls="" data-setup="{ &quot;playbackRates&quot;: [0.75, 1, 1.25, 1.5, 1.75, 2] }">
                 <source
-                        src="https://wms01-avmz.germanywestcentral.cloudapp.azure.com/studienportal/_definst/mp4:OrthoTrainer_Trailer.mp4/playlist.m3u8"
+                        src="https://wms01-avmz.germanywestcentral.cloudapp.azure.com/kfo/_definst/mp4:KFO_Skript.mp4/playlist.m3u8"
                         type="application/x-mpegURL">
             </video>
         </div>
 
-        <div data-href="skript.html" id="start_btn">Weiter</div>
+        <div class="button-container">
+            <a href="documents/Orthotrainer_Anleitung.pdf" id="download_btn" download="OrthoTrainer_Anleitung.pdf">
+                <i class="fas fa-download"></i>
+                Anleitung als PDF herunterladen
+            </a>
+        </div>
+
+        <div data-href="index.php" id="start_btn">Los geht's</div>
     </div>
 
 </div>
@@ -187,14 +224,13 @@ if (!empty($identifier)) {
 <footer>
     <p>&copy; 2025 AVMZ</p>
 </footer>
+
 <script>
     $(document).ready(function () {
         const urlParams = new URLSearchParams(window.location.search);
         const identifier = urlParams.get('identifier') || '';
 
-        console.log("Identifier aus URL:", identifier);
-
-        // Markiere Welcome-Seite als besucht
+        // Markiere Instruction-Seite als besucht
         if (identifier) {
             $.ajax({
                 type: "POST",
@@ -202,10 +238,10 @@ if (!empty($identifier)) {
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify({
                     identifier: identifier,
-                    page: 'welcome'
+                    page: 'instruction'
                 }),
                 success: function (result) {
-                    console.log("Welcome-Fortschritt gespeichert:", result);
+                    console.log("Instruction-Fortschritt gespeichert:", result);
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     console.log("Fehler beim Speichern:", thrownError);
@@ -215,7 +251,7 @@ if (!empty($identifier)) {
 
         // Event-Handler für "Los geht's" Button
         $("#start_btn").on("click", function() {
-            let targetUrl = "skript.html";
+            let targetUrl = "index.php";
 
             if (identifier) {
                 targetUrl += "?identifier=" + encodeURIComponent(identifier);

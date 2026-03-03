@@ -9,25 +9,10 @@ if (!empty($identifier)) {
     $conn = new mysqli($servername, $username, $password, $database);
 
     if (!$conn->connect_error) {
-        $stmt = $conn->prepare("SELECT welcome_completed, instruction_completed FROM user_progress WHERE identifier = ?");
+        // Nur Progress speichern, kein Redirect
+        $stmt = $conn->prepare("INSERT INTO user_progress (identifier, welcome_completed, instruction_completed) VALUES (?, 0, 0) ON DUPLICATE KEY UPDATE identifier = identifier");
         $stmt->bind_param("s", $identifier);
         $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-
-            // Wenn NICHT beide Seiten besucht wurden, zurück zu welcome.php
-            if ($row['welcome_completed'] != 1 || $row['instruction_completed'] != 1) {
-                header("Location: welcome.php?identifier=" . urlencode($identifier));
-                exit;
-            }
-        } else {
-            // Kein Eintrag gefunden = noch nicht besucht
-            header("Location: welcome.php?identifier=" . urlencode($identifier));
-            exit;
-        }
-
         $stmt->close();
         $conn->close();
     }
@@ -158,12 +143,12 @@ if (!empty($identifier)) {
 
     <!-- Breadcrumbs -->
     <div class="breadcrumbs">
-        <div class="breadcrumb-item completed">
+        <a href="welcome.php?identifier=<?php echo urlencode($identifier); ?>" class="breadcrumb-item completed">
             <span class="breadcrumb-number">1</span>
             <span>Willkommen</span>
-        </div>
+        </a>
         <span class="breadcrumb-separator">›</span>
-        <a href="#" id="breadcrumb_instruction" class="breadcrumb-item completed">
+        <a href="skript.php?identifier=<?php echo urlencode($identifier); ?>" class="breadcrumb-item completed">
             <span class="breadcrumb-number">2</span>
             <span>Anleitung</span>
         </a>
@@ -196,22 +181,6 @@ if (!empty($identifier)) {
 
 <script src="js/loadStartedCases.js?v=<?php echo time(); ?>"></script>
 
-<script>
-    $(document).ready(function () {
-        // Hole identifier aus URL-Parameter
-        const urlParams = new URLSearchParams(window.location.search);
-        const identifier = urlParams.get('identifier') || '';
-
-        console.log("Identifier aus URL:", identifier);
-
-        // Setze den Link für Breadcrumb "Anleitung" mit identifier
-        if (identifier) {
-            $("#breadcrumb_instruction").attr("href", "skript.html?identifier=" + encodeURIComponent(identifier));
-        } else {
-            $("#breadcrumb_instruction").attr("href", "skript.html");
-        }
-    });
-</script>
 
 <script src="js/getCases.js"></script>
 <script src="js/index.js"></script>
