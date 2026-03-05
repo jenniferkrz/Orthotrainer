@@ -222,7 +222,11 @@ $identifier = isset($_GET['identifier']) ? $_GET['identifier'] : '';
 </div>
 
 <footer>
-    <p>&copy; 2025 AVMZ</p>
+    <p>
+        AVMZ, RWTH Aachen<br>
+        Code: <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a> |
+        Inhalte: <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a>
+    </p>
 </footer>
 
 <script>
